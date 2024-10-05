@@ -14,7 +14,7 @@ export class ProductController implements Controller {
 
         /** If claims are equal to ['user'], that means the same as 'authenticated' */
         /** But if claims are undefined or [], that means that also unauthenticated users can access */
-        httpServer.get ('/all-products-public', this.getProductListPublic.bind(this), ['user', 'admin']);
+        httpServer.get ('/all-products-public', this.getProductListPublic.bind(this), ['manager', 'admin']);
         httpServer.get ('/product/:productId', this.getProductByIdPublic.bind(this), ['authenticated']);
 
         httpServer.get ('/product/:productId/full-details', this.getProductByIdFull.bind(this), ['admin']);

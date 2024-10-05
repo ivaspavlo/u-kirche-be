@@ -4,7 +4,7 @@ import { apiApp } from './api';
 import { eventTriggers } from './event-triggers';
 import { KEYS } from './core/constants';
 
-export type UserRole = 'user' | 'admin';
+export type UserRole = 'user' | 'manager' | 'admin';
 export type MyClaims = 'authenticated' | UserRole; // TODO: add OR operation with our own claims;
 
 process.env.TZ = 'Europe/Vienna';

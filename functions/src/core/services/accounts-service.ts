@@ -1,9 +1,7 @@
-import {UserRecord} from "firebase-admin/lib/auth";
-import * as admin from "firebase-admin";
-import {HttpResponseError} from "../utils/http-response-error";
-import {User} from "../data/user";
-import {UserFirestoreModel} from "../data/models/user/firestore/user-firestore-model";
-
+import * as admin from 'firebase-admin';
+import { HttpResponseError } from '../utils/http-response-error';
+import { User } from '../data/user';
+import { UserFirestoreModel } from '../data/models/user/firestore/user-firestore-model';
 
 class AccountsService {
 
@@ -16,11 +14,12 @@ class AccountsService {
             });
             const user = userInput.copyWith({ uid: createUserRes.uid });
             await admin.auth().setCustomUserClaims(user.uid, {
-                storeOwner: user.role == 'user', //true or false
-                admin: user.role == 'admin', //true or false
+                user: user.role === 'user',
+                manager: user.role === 'manager',
+                admin: user.role === 'admin'
             });
             const documentData = UserFirestoreModel.fromEntity(user).toDocumentData();
-            await admin.firestore().collection("users").doc(user.uid).set(documentData);
+            await admin.firestore().collection('users').doc(user.uid).set(documentData);
             return user;
         } catch (e){
             switch (e.code){

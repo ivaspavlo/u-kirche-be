@@ -1,13 +1,7 @@
-# Compiled JavaScript files
-lib/**/*.js
-lib/**/*.js.map
-
-# TypeScript v1 declaration files
-typings/
-
-# Node.js dependency directory
-node_modules/
-*.local
-
-# Compiled files
+.idea/*
+node_modules/*
 dist/*
+firebase-debug.log
+*-debug.log
+functions/node_modules/*
+functions/dist/*

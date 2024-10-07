@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import { Controller, HttpServer } from '../index';
 import { articlesService } from '../../../core/services/articles-service';
 import { Article } from '../../../core/data/article';
+import { ArticleClientModel } from '../../../core/data/models/article/client/article-client-model';
 
 export class ProductController implements Controller {
 
@@ -16,14 +17,11 @@ export class ProductController implements Controller {
     // httpServer.put ('/product/:productId', this.updateProductById.bind(this), ['admin']);
   }
 
-  private readonly createArticle: () => RequestHandler = async (req, res, next) => {
-    const productFromInput: Article = ProductClientModel.validate(req.body, req.auth.uid);
-    const product = await articlesService.createArticle(productFromInput);
-    const output = ProductClientModel.fromEntity(product).toBodyFullProduct();
+  private readonly createArticle: RequestHandler = async (req, res, next,) => {
+    const articleFromInput: Article = ArticleClientModel.validate(req.body, req.auth.uid);
+    const article = await articlesService.createArticle(articleFromInput);
+    const output = ArticleClientModel.fromEntity(article).toBodyFullArticle();
     res.send(output);
     next();
   }
-
-
-
 }

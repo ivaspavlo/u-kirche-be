@@ -4,7 +4,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "node_modules/.bin/rimraf ./dist && npx tsc",
-    "serve": "nodemon -e ts --exec \"npm run build && firebase emulators:start --only functions\""
+    "serve": "nodemon -e ts --exec \"npm run build && firebase emulators:start --only functions\"",
+    "build:watch": "tsc --watch --preserveWatchOutput",
+    "watch": "npm run build:watch | firebase emulators:start --only functions"
   },
   "keywords": [
     "firebase",

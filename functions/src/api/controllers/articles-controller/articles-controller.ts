@@ -4,10 +4,10 @@ import { articlesService } from '../../../core/services/articles-service';
 import { Article } from '../../../core/data/article';
 import { ArticleClientModel } from '../../../core/data/models/article/client/article-client-model';
 
-export class ProductController implements Controller {
+export class ArticleController implements Controller {
 
   initialize(httpServer: HttpServer,): void {
-    httpServer.post('/article', this.createArticle.bind(this), ['manager', 'admin']);
+    httpServer.post('/article', this.createArticle.bind(this), []);
 
     /** If claims are equal to ['user'], that means the same as 'authenticated' */
     /** But if claims are undefined or [], that means that also unauthenticated users can access */

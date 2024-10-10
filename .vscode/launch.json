@@ -6,7 +6,12 @@
       "request": "attach",
       "name": "Attach",
       "port": 9229,
-      "restart": true
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"],
+      "outFiles": [
+        "${workspaceFolder}/**/*.(m|c|)ts",
+        "!**/node_modules/**"
+      ]
     }
   ]
 }

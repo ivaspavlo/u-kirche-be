@@ -2,8 +2,9 @@
   "name": "u-kirche-be",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node_modules/.bin/rimraf ./dist && npx tsc",
-    "build:watch": "npx tsc --watch",
+    "clean": "node_modules/.bin/rimraf ./dist",
+    "build": "npm run clean && npx tsc",
+    "build:watch": "npm run clean && npx tsc --watch",
     "watch": "npm run build:watch | firebase emulators:start --inspect-functions"
   },
   "keywords": [

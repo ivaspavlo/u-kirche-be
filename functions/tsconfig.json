@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "outDir": "dist",
     "target": "es2017",
     "module": "commonjs",
     "resolveJsonModule": true,
-    "outDir": "dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -15,10 +15,7 @@
     "typeRoots": [
       "./src/api/@types",
       "./node_modules/@types"
-    ],
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "sourceMap": true,
+    ]
   },
   "compileOnSave": true
 }

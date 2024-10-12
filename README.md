@@ -5,9 +5,9 @@ A Node.js REST API built with TypeScript, Express, Firebase Authentication, Fire
 Important features:
 
 -  **Visual Studio Code debugger**
-  - Project does not include a specific .vscode/launch.json configuration.
-  - In order to automatically attach a debugger run: `Debug: Toggle Auto Attach` and select "Smart".
-  - After that debugger will be automatically attached after starting the project.
+  - Project includes a .vscode/launch.json configuration.
+  - After running `npm run serve` command click on the VS Code sidepanel's "Run and debug" button. In the DDL select "Attach debugger" and click "Play". In this case after changing source code debugger needs to be attached once more.
+  - Other option is to develop in the debug mode: click on the VS Code sidepanel's "Run and debug" button, in the DDL select "Run script: watch" and click "Play". Debugger will be auto-attached after each reload of the project.
 
 -  **An API HTTP Trigger:**
   - API organized under the `api` folder.

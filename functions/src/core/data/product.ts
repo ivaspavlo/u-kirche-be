@@ -1,7 +1,3 @@
-import {firestore} from "firebase-admin";
-import Timestamp = firestore.Timestamp;
-import FieldValue = firestore.FieldValue;
-
 export class Product {
     constructor(
         public readonly productId:string | undefined,

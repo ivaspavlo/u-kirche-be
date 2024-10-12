@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach debugger",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "skipFiles": [
+        "${workspaceFolder}/functions/node_modules/**",
+        "<node_internals>/**"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/functions/dist/**/*.ts"
+      ]
+    }
+  ]
+}

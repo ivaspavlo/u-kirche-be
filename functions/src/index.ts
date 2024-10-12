@@ -5,7 +5,7 @@ import { eventTriggers } from './event-triggers';
 import { KEYS } from './core/constants';
 
 export type UserRole = 'user' | 'manager' | 'admin';
-export type MyClaims = 'authenticated' | UserRole; // TODO: add OR operation with our own claims;
+export type MyClaims = 'authenticated' | UserRole;
 
 process.env.TZ = 'Europe/Vienna';
 

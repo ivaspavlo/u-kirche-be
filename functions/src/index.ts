@@ -16,6 +16,6 @@ exports.api = https.onRequest(
   apiApp
 );
 
-Object.assign(exports, eventTriggers());
+// Object.assign(exports, eventTriggers());
 
 logger.log('App was initialized');

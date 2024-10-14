@@ -15,7 +15,8 @@
     "typeRoots": [
       "./src/api/@types",
       "./node_modules/@types"
-    ]
+    ],
+    "sourceMap": true // required for debugger to run
   },
   "compileOnSave": true
 }

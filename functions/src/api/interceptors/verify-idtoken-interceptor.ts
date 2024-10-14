@@ -1,12 +1,15 @@
-import {NextFunction, Request, Response} from "express";
-import * as admin from "firebase-admin";
-import assert from "node:assert";
-import {MyClaims} from "../../index";
-import {logger} from "firebase-functions";
-import {ErrorResponseBody} from "../../core/utils/http-response-error";
+import * as admin from 'firebase-admin';
+import assert from 'node:assert';
+import { NextFunction, Request, Response } from 'express';
+import { MyClaims } from '../../index';
+import { logger } from 'firebase-functions';
+import { ErrorResponseBody } from '../../core/utils/http-response-error';
 
 const _idToken = (req:Request) => {
-    const authorizationHeaderValue:string | undefined = (req.headers['Authorization']?.length ? req.headers['Authorization'] : req.headers['authorization'])?.toString();
+    const authorizationHeaderValue:string | undefined =
+        (req.headers['Authorization']?.length
+            ? req.headers['Authorization']
+            : req.headers['authorization'])?.toString();
     if (!authorizationHeaderValue?.length || authorizationHeaderValue.length <= 16) {
         return null;
     }
@@ -35,13 +38,13 @@ export const verifyIdTokenInterceptor =  ((req:Request, res:Response, next:NextF
             res.status(401).send(new ErrorResponseBody({
                 status: 401,
                 code: 'UNAUTHORIZED',
-                description: "Invalid Firebase ID Token on 'Authorization' header (TIMEOUT)",
+                description: 'Invalid Firebase ID Token on `Authorization` header (TIMEOUT)',
             }));
         }
     }, 4000);
 
     admin.auth().verifyIdToken(idToken, true).then(async (decoded) => {
-        if(!finished){
+        if(!finished) {
             finished = true;
 
             req.authenticated = true;
@@ -59,12 +62,12 @@ export const verifyIdTokenInterceptor =  ((req:Request, res:Response, next:NextF
         clearTimeout(timeout);
     }, (reason) => {
         logger.error(`Invalid Firebase ID Token on 'Authorization' header: ${reason}`);
-        if(!finished){
+        if(!finished) {
             finished = true;
             res.status(401).send(new ErrorResponseBody({
                 status: 401,
                 code: 'UNAUTHORIZED',
-                description: "Invalid Firebase ID Token on 'Authorization' header"
+                description: 'Invalid Firebase ID Token on `Authorization` header'
             }));
         }
         clearTimeout(timeout);

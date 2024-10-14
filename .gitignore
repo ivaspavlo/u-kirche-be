@@ -1,8 +1,5 @@
 .idea/*
-node_modules/*
-dist/*
 firebase-debug.log
 *-debug.log
 functions/node_modules/*
 functions/dist/*
-firebase-debug.log

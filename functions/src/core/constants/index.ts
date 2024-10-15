@@ -5,3 +5,7 @@ export enum KEYS {
 export enum COLLECTION {
   ARTICLES = 'articles'
 }
+
+export enum ENV {
+  ENVIRONMENT = 'ENVIRONMENT'
+}

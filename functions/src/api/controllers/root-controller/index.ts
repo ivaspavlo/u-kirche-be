@@ -15,7 +15,6 @@ export class RootController implements Controller {
     }
 
     private readonly root: RequestHandler = async (req, res, next) => {
-        console.log('test ----------->', env.value());
         res.send({
             'status': `API is working! Counter: ${(counter++)}`
         });

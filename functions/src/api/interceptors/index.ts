@@ -12,5 +12,5 @@ export const interceptors: Array<(req:Request,res:Response,next:NextFunction) =>
         req.claims = {} as any;
         next();
     },
-    verifyIdTokenInterceptor,
+    verifyIdTokenInterceptor
 ];

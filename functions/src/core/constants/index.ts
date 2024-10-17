@@ -6,6 +6,12 @@ export enum COLLECTION {
   ARTICLES = 'articles'
 }
 
-export enum ENV {
-  ENVIRONMENT = 'ENVIRONMENT'
+export enum ENV_KEY {
+  MODE = 'MODE'
+}
+
+export enum ENV_MODE {
+  LOCAL = 'LOCAL',
+  STAGING = 'STAGING',
+  PROD = 'PROD'
 }

@@ -4,6 +4,10 @@ import { NextFunction, Request, Response } from 'express';
 import { MyClaims } from '../../index';
 import { logger } from 'firebase-functions';
 import { ErrorResponseBody } from '../../core/utils/http-response-error';
+import { ENV_KEY, ENV_MODE } from '../../core/constants';
+
+const { defineString } = require('firebase-functions/params');
+const env = defineString(ENV_KEY.MODE);
 
 const _idToken = (req:Request) => {
     const authorizationHeaderValue:string | undefined =
@@ -21,6 +25,14 @@ const _idToken = (req:Request) => {
 
 export const verifyIdTokenInterceptor =  ((req:Request, res:Response, next:NextFunction) => {
     const idToken = _idToken(req);
+
+    // TODO: to be removed after development is complete
+    if (env.value() === ENV_MODE.LOCAL) {
+        req.authenticated = true;
+        req.claims!['authenticated' as MyClaims] = true;
+        next();
+        return;
+    }
 
     if (!idToken?.length) {
         req.authenticated = false;

@@ -1,8 +1,10 @@
 import * as admin from 'firebase-admin';
 import { logger, https } from 'firebase-functions';
 import { apiApp } from './api';
-import { eventTriggers } from './event-triggers';
-import { KEYS } from './core/constants';
+import { KEYS, ENV_KEY, ENV_MODE } from './core/constants';
+
+const { defineString } = require('firebase-functions/params');
+const env = defineString(ENV_KEY.MODE);
 
 export type UserRole = 'user' | 'manager' | 'admin';
 export type MyClaims = 'authenticated' | UserRole;
@@ -16,6 +18,4 @@ exports.api = https.onRequest(
   apiApp
 );
 
-// Object.assign(exports, eventTriggers());
-
-logger.log('App was initialized');
+logger.log(`App started in mode: ${env.value()}`);

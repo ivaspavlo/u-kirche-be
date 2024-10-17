@@ -1,10 +1,5 @@
 import { RequestHandler } from 'express';
 import { Controller, HttpServer } from '../index';
-import { ENV } from '../../../core/constants';
-
-const { defineString } = require('firebase-functions/params');
-
-const env = defineString(ENV.ENVIRONMENT);
 
 let counter:number = 1;
 

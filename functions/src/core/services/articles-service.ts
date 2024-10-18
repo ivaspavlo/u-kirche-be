@@ -5,7 +5,6 @@ import { ArticleFirestoreModel } from '../data/models/article/firestore/article-
 import { FieldValue } from 'firebase-admin/firestore';
 
 export class ArticlesService {
-
   private collection() {
     return admin.firestore().collection(COLLECTION.ARTICLES);
   }

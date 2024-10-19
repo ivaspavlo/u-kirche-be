@@ -16,14 +16,14 @@ export class ArticleClientModel extends Article {
     return new ArticleClientModel('','','','', new Date());
   }
 
-  private static _validate(body: any) {
+  private static _validate(body: unknown) {
     console.log(body);
     validateStingNotEmpty(body[ArticleClientModel.kTitle]);
     validateStingNotEmpty(body[ArticleClientModel.kContent]);
     validateStingNotEmpty(body[ArticleClientModel.kAuthorId]);
   }
 
-  static validate(body: any): ArticleClientModel {
+  static validate(body: unknown): ArticleClientModel {
     this._validate(body);
     return new ArticleClientModel(
       null,

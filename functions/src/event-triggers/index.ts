@@ -10,7 +10,7 @@ const eventTriggerList: Array<InitializeEventTriggers> = [
 
 export function eventTriggers (): object {
     const res: object = {};
-    for (let v2 of eventTriggerList) {
+    for (const v2 of eventTriggerList) {
         v2.initialize((params) => {
             res[params.name] = params.handler;
         });

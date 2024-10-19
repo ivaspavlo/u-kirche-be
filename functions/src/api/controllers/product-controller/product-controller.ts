@@ -43,7 +43,7 @@ export class ProductController implements Controller {
         return this.handleGetProductById(req,res, next, (product) => ProductClientModel.fromEntity(product).toBodyPublicProduct());
     }
 
-    private readonly getProductByIdFull: RequestHandler = async (req, res, next,) => {
+    private readonly getProductByIdFull: RequestHandler = async (req, res, next) => {
         return this.handleGetProductById(req,res, next, (product) => {
             // Checking if the user has permission
             if (!req.claims!['admin'] && product.storeOwnerUid != req.auth!.uid) {
@@ -53,7 +53,7 @@ export class ProductController implements Controller {
         });
     }
 
-    private async handleGetProductById(req:Request, res:Response, next:NextFunction, toOutput:((product:Product) => any)) {
+    private async handleGetProductById(req: Request, res: Response, next: NextFunction, toOutput:((product:Product) => unknown)) {
         if(!req.params['productId']?.length){
             throw new HttpResponseError(400, 'BAD_REQUEST', 'Please, inform a productId on the route');
         }
@@ -65,7 +65,7 @@ export class ProductController implements Controller {
         next();
     }
 
-    private readonly updateProductById: RequestHandler = async (req, res, next,) => {
+    private readonly updateProductById: RequestHandler = async (req, res, next) => {
         if (!req.params['productId']?.length) throw new HttpResponseError(400, 'BAD_REQUEST', 'Please, inform the `productId` as parameter')
         const partialProduct = PartialProductClientModel.validate(req.body);
 

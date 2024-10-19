@@ -1,20 +1,19 @@
-import {Product} from "../../../product";
+import {Product} from '../../../product';
 import {
     validateInternalCode,
     validateProductName,
     validateProductPrice,
     validateStockQuantity
-} from "./validators";
-
+} from './validators';
 
 export class ProductClientModel extends Product {
-    static kProductId = "productId";
-    static kStoreOwnerUid = "storeOwnerUid";
-    static kName = "name";
-    static kPrice = "price";
-    static kStockQuantity = "stockQuantity";
-    static kInternalCode = "internalCode";
-    static kCreatedAtMillisecondsSinceEpoch = "createdAtMillisecondsSinceEpoch";
+    static kProductId = 'productId';
+    static kStoreOwnerUid = 'storeOwnerUid';
+    static kName = 'name';
+    static kPrice = 'price';
+    static kStockQuantity = 'stockQuantity';
+    static kInternalCode = 'internalCode';
+    static kCreatedAtMillisecondsSinceEpoch = 'createdAtMillisecondsSinceEpoch';
 
     static fromEntity (product: Product): ProductClientModel {
         return Object.assign(ProductClientModel.empty(), product);
@@ -24,14 +23,14 @@ export class ProductClientModel extends Product {
         return new ProductClientModel('','','',0,0,'', new Date());
     }
 
-    private static _validate(body: any) {
+    private static _validate(body: unknown) {
         validateProductName(body[ProductClientModel.kName]);
         validateProductPrice(body[ProductClientModel.kPrice]);
         validateStockQuantity(body[ProductClientModel.kStockQuantity]);
         validateInternalCode(body[ProductClientModel.kInternalCode]);
     }
 
-    static validate (body: any, storeOwnerUid: string) : ProductClientModel {
+    static validate (body: unknown, storeOwnerUid: string) : ProductClientModel {
         this._validate(body);
         return new ProductClientModel(
             null,

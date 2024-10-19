@@ -9,7 +9,7 @@ export class RootController implements Controller {
         httpServer.get('/', this.root.bind(this));
     }
 
-    private readonly root: RequestHandler = async (req, res, next,) => {
+    private readonly root: RequestHandler = async (req, res, next) => {
         res.send({
             'status': `API is working! Counter: ${(counter++)}`
         });

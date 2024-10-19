@@ -14,4 +14,4 @@ controllers.forEach((controller) => {
     controller.initialize(httpServer);
 });
 
-export {apiApp};
+export { apiApp };

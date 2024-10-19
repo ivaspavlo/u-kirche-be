@@ -2,10 +2,11 @@ import { DocumentData, FieldValue, Timestamp } from 'firebase-admin/firestore';
 import { Article } from '../../../article';
 
 export class ArticleFirestoreModel extends Article {
-  static kArticleId = 'articleId';
-  static kCreatedAt = 'createdAt';
   static kTitle = 'title';
   static kContent = 'content';
+  static kAuthorId = 'authorId';
+  static kArticleId = 'articleId';
+  static kCreatedAt = 'createdAt';
 
   static fromEntity(article?: Article): ArticleFirestoreModel | null {
     if (article == null) {
@@ -15,7 +16,7 @@ export class ArticleFirestoreModel extends Article {
   }
 
   static empty() {
-    return new ArticleFirestoreModel('','','',new Date());
+    return new ArticleFirestoreModel('','','','',new Date());
   }
 
   public toDocumentData(articleId?: string, createdAt?: Timestamp| FieldValue) {
@@ -23,7 +24,8 @@ export class ArticleFirestoreModel extends Article {
       [ArticleFirestoreModel.kArticleId]: articleId ?? this.articleId,
       [ArticleFirestoreModel.kCreatedAt]: createdAt ?? this.createdAt,
       [ArticleFirestoreModel.kTitle]: this.title,
-      [ArticleFirestoreModel.kContent]: this.content
+      [ArticleFirestoreModel.kContent]: this.content,
+      [ArticleFirestoreModel.kAuthorId]: this.authorId
     }
   }
 
@@ -32,7 +34,8 @@ export class ArticleFirestoreModel extends Article {
       data[ArticleFirestoreModel.kArticleId],
       data[ArticleFirestoreModel.kTitle],
       data[ArticleFirestoreModel.kContent],
+      data[ArticleFirestoreModel.kAuthorId],
       (data[ArticleFirestoreModel.kCreatedAt] as Timestamp).toDate(),
-    )
+    );
   }
 }

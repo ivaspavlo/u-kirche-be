@@ -1,9 +1,11 @@
 import { Article } from '../../../article';
+import { validateStingNotEmpty } from './article-validators';
 
 export class ArticleClientModel extends Article {
   static kArticleId = 'articleId';
   static kTitle = 'title';
   static kContent = 'content';
+  static kAuthorId = 'authorId';
   static kCreatedAtMillisecondsSinceEpoch = 'createdAtMillisecondsSinceEpoch';
 
   static fromEntity (article: Article): ArticleClientModel {
@@ -11,22 +13,23 @@ export class ArticleClientModel extends Article {
   }
 
   static empty() {
-    return new ArticleClientModel('','','',new Date());
+    return new ArticleClientModel('','','','', new Date());
   }
 
   private static _validate(body: any) {
-    // validateProductName(body[ProductClientModel.kName]);
-    // validateProductPrice(body[ProductClientModel.kPrice]);
-    // validateStockQuantity(body[ProductClientModel.kStockQuantity]);
-    // validateInternalCode(body[ProductClientModel.kInternalCode]);
+    console.log(body);
+    validateStingNotEmpty(body[ArticleClientModel.kTitle]);
+    validateStingNotEmpty(body[ArticleClientModel.kContent]);
+    validateStingNotEmpty(body[ArticleClientModel.kAuthorId]);
   }
 
-  static validate(body: any, storeOwnerUid: string): ArticleClientModel {
+  static validate(body: any): ArticleClientModel {
     this._validate(body);
     return new ArticleClientModel(
       null,
       body[ArticleClientModel.kTitle],
       body[ArticleClientModel.kContent],
+      body[ArticleClientModel.kAuthorId],
       null
     );
   }
@@ -42,7 +45,8 @@ export class ArticleClientModel extends Article {
     return {
       [ArticleClientModel.kArticleId]: this.articleId,
       [ArticleClientModel.kTitle]: this.title,
-      [ArticleClientModel.kContent]: this.content
+      [ArticleClientModel.kContent]: this.content,
+      [ArticleClientModel.kAuthorId]: this.authorId
     }
   }
 }

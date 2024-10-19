@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 import { Article } from '../data/article';
 import { COLLECTION } from '../constants';
 import { ArticleFirestoreModel } from '../data/models/article/firestore/article-firestore-model';
-import { FieldValue } from 'firebase-admin/firestore';
 
 export class ArticlesService {
   private collection() {
@@ -16,7 +16,7 @@ export class ArticlesService {
 
   async getArticleById(id: string): Promise<Article | null> {
     const res = await this.doc(id).get();
-    if(!res.exists){
+    if (!res.exists) {
       return null;
     }
     return ArticleFirestoreModel.fromDocumentData(res.data());

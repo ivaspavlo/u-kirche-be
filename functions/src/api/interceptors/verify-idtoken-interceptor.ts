@@ -65,7 +65,9 @@ export const verifyIdTokenInterceptor =  ((req: Request, res: Response, next: Ne
             req.authenticated = true;
             req.auth = (await admin.auth().getUser(decoded.uid));
             req.token = decoded;
+            /* eslint-disable */
             req.claims = req.auth!.customClaims ?? {} as any; // same object reference as Firebase
+            /* eslint-enable */
             req.claims['authenticated' as MyClaims] = true;
 
             assert(req.auth!.customClaims!['authenticated'] === true);

@@ -9,6 +9,7 @@ export class User {
         public readonly birthDate: Date,
     ) {}
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     copyWith(data:Partial<Record<keyof User, any>>) {
         return new User(
             data.uid ?? this.uid,

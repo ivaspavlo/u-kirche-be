@@ -35,7 +35,7 @@ export class ProductsService {
         return snapshot.docs.map((doc) => ProductFirestoreModel.fromDocumentData(doc.data()));
     }
 
-    async updateProductById(productId: string, partialProduct: Partial<Record<keyof Product, any>>): Promise<void> {
+    async updateProductById(productId: string, partialProduct: Partial<Record<keyof Product, unknown>>): Promise<void> {
         const documentData = PartialProductFirestoreModel.fromPartialEntity(partialProduct).toDocumentData();
         await this.doc(productId).update(documentData);
     }

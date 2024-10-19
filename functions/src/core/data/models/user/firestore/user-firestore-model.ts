@@ -15,6 +15,7 @@ export class UserFirestoreModel extends User {
     }
 
     static empty() : UserFirestoreModel {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return new UserFirestoreModel('','','' as any,'', new Date());
     }
 

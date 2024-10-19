@@ -24,7 +24,9 @@ export class UserClientModel extends User {
     }
 
     static empty() : UserClientModel {
+        /* eslint-disable */
         return new UserClientModel('','','' as any,'', new Date(),);
+        /* eslint-enable */
     }
 
     toBody() {
@@ -37,7 +39,7 @@ export class UserClientModel extends User {
         };
     }
 
-    static fromBody(body: any): UserClientModel & { password: string, adminKey?:string } {
+    static fromBody(body: unknown): UserClientModel & { password: string, adminKey?:string } {
         validateUserName(body[UserClientModel.kName]);
         validateUserEmail(body[UserClientModel.kEmail]);
         validateUserRole(body[UserClientModel.kRole]);

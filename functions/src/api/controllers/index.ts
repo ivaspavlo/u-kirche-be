@@ -9,7 +9,7 @@ export interface Controller {
 
 export class HttpServer {
 
-    constructor(public readonly express:Express) {}
+    constructor(public readonly express: Express) {}
 
     get(path: string, requestHandler: RequestHandler, claims?:MyClaims[]): void {
         this.express.get(path,this._catchErrorHandler(requestHandler, claims));
@@ -28,10 +28,10 @@ export class HttpServer {
     }
 
     private readonly _catchErrorHandler =  (requestHandler: RequestHandler, claims?:MyClaims[]) => {
-        return async (req:Request, res:Response, next:NextFunction) => {
+        return async (req: Request, res: Response, next: NextFunction) => {
             const checkClaims = () => {
                 if(claims?.length) {
-                    for(let claim of claims){
+                    for(const claim of claims) {
                         if((req.auth?.customClaims ?? {})[claim]){
                             return;
                         }

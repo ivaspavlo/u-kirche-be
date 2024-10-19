@@ -8,10 +8,11 @@ import { HttpResponseError } from '../../../core/utils/http-response-error';
 export class ArticleController implements Controller {
 
   initialize(httpServer: HttpServer,): void {
+    // If claims are equal to ['user'], that means the same as 'authenticated'
     httpServer.post('/article', this.createArticle.bind(this), ['manager', 'admin']);
     httpServer.get('/article/:articleId', this.getArticle.bind(this), []);
 
-    /** If claims are equal to ['user'], that means the same as 'authenticated' */
+    
     /** But if claims are undefined or [], that means that also unauthenticated users can access */
     // httpServer.get ('/all-products-public', this.getProductListPublic.bind(this), ['user', 'manager', 'admin']);
     // httpServer.get ('/product/:productId', this.getProductByIdPublic.bind(this), ['authenticated']);

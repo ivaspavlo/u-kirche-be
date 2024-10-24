@@ -26,7 +26,7 @@ const _idToken = (req:Request) => {
     return authorizationHeaderValue;
 }
 
-export const verifyIdTokenInterceptor =  ((req: Request, res: Response, next: NextFunction) => {
+export const verifyIdTokenInterceptor = ((req: Request, res: Response, next: NextFunction) => {
     const idToken = _idToken(req);
 
     // TODO: to be removed after development is complete

@@ -14,7 +14,7 @@ export class AccountController implements Controller {
         httpServer.post ('/account', this.createAccount.bind(this));
     }
 
-    private readonly createAccount: RequestHandler = async (req, res, next,) => {
+    private readonly createAccount: RequestHandler = async (req, res, next) => {
         const input: UserClientModel & { password: string, adminKey?: string } = UserClientModel.fromBody(req.body);
 
         // TODO: to be removed after development is complete
@@ -30,6 +30,10 @@ export class AccountController implements Controller {
             'user': UserClientModel.fromEntity(refreshedUser).toBody(),
         });
         next();
+    }
+
+    private readonly login: RequestHandler = async (req, res, next) => {
+        
     }
 }
 

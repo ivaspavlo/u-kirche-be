@@ -4,7 +4,7 @@ import { User } from '../data/user';
 import { UserFirestoreModel } from '../data/models/user/firestore/user-firestore-model';
 
 class AccountsService {
-    async createAccount(userInput:User, password: string) : Promise<User> {
+    async createAccount(userInput: User, password: string) : Promise<User> {
         try {
             const createUserRes = await admin.auth().createUser({
                 displayName: userInput.name,

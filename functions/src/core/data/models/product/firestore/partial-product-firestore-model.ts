@@ -1,6 +1,5 @@
-import {Product} from "../../../product";
-import {ProductFirestoreModel} from "./product-firestore-model";
-
+import { Product } from '../product';
+import { ProductFirestoreModel } from './product-firestore-model';
 
 export class PartialProductFirestoreModel {
 

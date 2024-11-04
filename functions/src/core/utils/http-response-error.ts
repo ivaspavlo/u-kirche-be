@@ -1,12 +1,10 @@
-
-
 export class HttpResponseError extends Error {
     constructor(
-        public readonly status:number,
-        public readonly code:string = 'UNKNOWN',
-        public readonly description:string = `An error occurred with status "${status}" and code "${code}"`,
+        public readonly status: number,
+        public readonly code: string = 'UNKNOWN',
+        public readonly description: string = `An error occurred with status '${status}' and code '${code}'`,
     ) {
-        super(`(HttpResponseError) status: "${status}" code: "${code}" description: "${description}"`);
+        super(`(HttpResponseError) status: '${status}' code: '${code}' description: '${description}'`);
     }
 }
 

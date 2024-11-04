@@ -1,5 +1,5 @@
 import {firestore} from "firebase-admin";
-import {DbChangedRecord} from "../data/db-changed-record";
+import {DbChangedRecord} from "../data/models/db-changed-record/db-changed-record";
 import {
     DbChangedRecordFirestoreModel
 } from "../data/models/db-changed-record/firestore/db-changed-record-firestore-model";

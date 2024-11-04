@@ -1,4 +1,4 @@
-import { Article } from '../../../article';
+import { Article } from '../article';
 import { validateStingNotEmpty } from './article-validators';
 
 export class ArticleClientModel extends Article {

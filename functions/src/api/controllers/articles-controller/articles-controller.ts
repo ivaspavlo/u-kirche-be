@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { Controller, HttpServer } from '../index';
 import { articlesService } from '../../../core/services/articles-service';
-import { Article } from '../../../core/data/article';
+import { Article } from '../../../core/data/models/article/article';
 import { ArticleClientModel } from '../../../core/data/models/article/client/article-client-model';
 import { HttpResponseError } from '../../../core/utils/http-response-error';
 

@@ -6,7 +6,7 @@ import { KEYS, ENV_KEY } from './core/constants';
 const { defineString } = require('firebase-functions/params');
 const env = defineString(ENV_KEY.MODE);
 
-export type UserRole = 'user' | 'manager' | 'admin';
+export type UserRole = 'admin' | 'superadmin';
 export type MyClaims = 'authenticated' | UserRole;
 
 process.env.TZ = 'Europe/Vienna';

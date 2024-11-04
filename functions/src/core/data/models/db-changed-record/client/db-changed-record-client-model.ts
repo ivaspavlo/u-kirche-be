@@ -1,4 +1,4 @@
-import {DbChangedRecord} from "../../../db-changed-record";
+import {DbChangedRecord} from "../db-changed-record";
 
 export class DbChangedRecordClientModel extends DbChangedRecord {
     static kRecordId: string = 'recordId';

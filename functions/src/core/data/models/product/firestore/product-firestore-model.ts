@@ -1,4 +1,4 @@
-import {Product} from "../../../product";
+import {Product} from "../product";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
 import Timestamp = firestore.Timestamp;

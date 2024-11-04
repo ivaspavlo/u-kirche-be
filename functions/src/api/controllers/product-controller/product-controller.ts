@@ -3,7 +3,7 @@ import { Controller, HttpServer } from '../index';
 import { ProductClientModel } from '../../../core/data/models/product/client/product-client-model';
 import { productsService } from '../../../core/services/products-service';
 import { HttpResponseError } from '../../../core/utils/http-response-error';
-import { Product } from '../../../core/data/product';
+import { Product } from '../../../core/data/models/product/product';
 import { PartialProductClientModel } from '../../../core/data/models/product/client/partial-product-client-model';
 import { MyClaims } from '../../../index';
 

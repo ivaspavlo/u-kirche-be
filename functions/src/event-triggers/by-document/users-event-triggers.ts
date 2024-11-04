@@ -2,7 +2,7 @@ import {AddEventTrigger, InitializeEventTriggers, EventTriggerV2Function} from "
 import {onDocumentCreated} from "firebase-functions/v2/firestore";
 import {UserFirestoreModel} from "../../core/data/models/user/firestore/user-firestore-model";
 import {dbChangesService} from "../../core/services/db-changes-service";
-import {DbChangedRecord} from "../../core/data/db-changed-record";
+import {DbChangedRecord} from "../../core/data/models/db-changed-record/db-changed-record";
 
 
 export class UsersEventTriggers implements InitializeEventTriggers {

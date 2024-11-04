@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
-import { Article } from '../data/article';
+import { Article } from '../data/models/article/article';
 import { COLLECTION } from '../constants';
 import { ArticleFirestoreModel } from '../data/models/article/firestore/article-firestore-model';
 

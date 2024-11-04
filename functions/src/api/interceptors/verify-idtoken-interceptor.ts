@@ -1,8 +1,9 @@
 import * as admin from 'firebase-admin';
 import assert from 'node:assert';
+import { logger } from 'firebase-functions';
 import { NextFunction, Request, Response } from 'express';
 import { MyClaims } from '../../index';
-import { logger } from 'firebase-functions';
+
 import { ErrorResponseBody } from '../../core/utils/http-response-error';
 import { ENV_KEY, ENV_MODE } from '../../core/constants';
 
@@ -19,7 +20,7 @@ const _idToken = (req:Request) => {
         return null;
     }
 
-    if (authorizationHeaderValue?.toLowerCase()?.startsWith('bearer ')){
+    if (authorizationHeaderValue?.toLowerCase()?.startsWith('bearer ')) {
         return authorizationHeaderValue.substring('bearer '.length);
     }
 

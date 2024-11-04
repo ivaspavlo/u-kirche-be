@@ -1,4 +1,4 @@
-import {Product} from "../data/product";
+import {Product} from "../data/models/product/product";
 import {firestore} from "firebase-admin";
 import * as admin from "firebase-admin";
 import {ProductFirestoreModel} from "../data/models/product/firestore/product-firestore-model";

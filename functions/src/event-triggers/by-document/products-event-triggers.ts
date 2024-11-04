@@ -1,8 +1,8 @@
 import {InitializeEventTriggers, EventTriggerV2Function, AddEventTrigger} from "../initialize-event-triggers";
 import {ProductFirestoreModel} from "../../core/data/models/product/firestore/product-firestore-model";
-import {Product} from "../../core/data/product";
+import {Product} from "../../core/data/models/product/product";
 import {onDocumentCreated, onDocumentUpdated} from "firebase-functions/v2/firestore";
-import {DbChangedRecord} from "../../core/data/db-changed-record";
+import {DbChangedRecord} from "../../core/data/models/db-changed-record/db-changed-record";
 import {dbChangesService} from "../../core/services/db-changes-service";
 
 export class ProductsEventTriggers implements InitializeEventTriggers {

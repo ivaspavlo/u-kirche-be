@@ -1,5 +1,5 @@
 import { DocumentData, FieldValue, Timestamp } from 'firebase-admin/firestore';
-import { Article } from '../../../article';
+import { Article } from '../article';
 
 export class ArticleFirestoreModel extends Article {
   static kTitle = 'title';

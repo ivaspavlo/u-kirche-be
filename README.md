@@ -35,3 +35,5 @@ A Node.js REST API built with TypeScript, Express, Firebase Authentication, Fire
   - list all Firebase projects: `firebase projects:list`
   - switch to another Firebase project: `firebase use <project_name>`
   - set Firebase secret: `firebase functions:secrets:set <secret_name>`
+  - generate Firebase CI token: `firebase login:ci`
+  - run before deploying to hosting: `firebase init hosting:github`

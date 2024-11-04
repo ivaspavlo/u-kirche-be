@@ -1,4 +1,4 @@
-import {DbChangedRecord} from "../../../db-changed-record";
+import {DbChangedRecord} from "../db-changed-record";
 import {firestore} from "firebase-admin";
 import Timestamp = firestore.Timestamp;
 import FieldValue = firestore.FieldValue;

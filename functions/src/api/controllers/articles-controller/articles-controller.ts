@@ -4,20 +4,14 @@ import { articlesService } from '../../../core/services/articles-service';
 import { Article } from '../../../core/data/models/article/article';
 import { ArticleClientModel } from '../../../core/data/models/article/client/article-client-model';
 import { HttpResponseError } from '../../../core/utils/http-response-error';
+import { ROLE } from '../../../core/constants';
 
 export class ArticleController implements Controller {
 
   initialize(httpServer: HttpServer,): void {
     // If claims are equal to ['user'], that means the same as 'authenticated'
-    httpServer.post('/article', this.createArticle.bind(this), ['manager', 'admin']);
+    httpServer.post('/article', this.createArticle.bind(this), [ROLE.ADMIN, ROLE.SUPERADMIN]);
     httpServer.get('/article/:articleId', this.getArticle.bind(this), []);
-
-    
-    /** But if claims are undefined or [], that means that also unauthenticated users can access */
-    // httpServer.get ('/all-products-public', this.getProductListPublic.bind(this), ['user', 'manager', 'admin']);
-    // httpServer.get ('/product/:productId', this.getProductByIdPublic.bind(this), ['authenticated']);
-    // httpServer.get ('/product/:productId/full-details', this.getProductByIdFull.bind(this), ['admin']);
-    // httpServer.put ('/product/:productId', this.updateProductById.bind(this), ['admin']);
   }
 
   private readonly createArticle: RequestHandler = async (req, res, next) => {

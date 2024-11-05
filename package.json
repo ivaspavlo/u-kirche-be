@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "npm run --prefix ./functions build",
+    "watch": "npm run --prefix ./functions watch",
+    "clean": "npm run --prefix ./functions clean",
+    "build:watch": "npm run --prefix ./functions build:watch"
+  }
+}

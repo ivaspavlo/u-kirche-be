@@ -1,5 +1,9 @@
 /** source: https://stackoverflow.com/a/9204568/4508758 */
-export function validateEmail(email): boolean {
+export function validateEmail(email: string): boolean {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
+}
+
+export function validateString(value: unknown): boolean {
+    return typeof value !== 'string';
 }

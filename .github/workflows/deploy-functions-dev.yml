@@ -3,7 +3,7 @@ name: Deploy Firebase Functions
 on:
   push:
     branches:
-      - staging
+      - develop
 
 jobs:
   build-and-deploy:
@@ -28,4 +28,4 @@ jobs:
     - name: Deploy to Firebase
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      run: firebase deploy --only functions --project u-kirche-stage
+      run: firebase deploy --only functions --project u-kirche-dev-e7672

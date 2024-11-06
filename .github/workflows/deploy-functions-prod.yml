@@ -28,4 +28,4 @@ jobs:
     - name: Deploy to Firebase
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      run: firebase deploy --only functions --project u-kirche-prod
+      run: firebase deploy --only functions --project u-kirche-prod-6cc4c

@@ -14,7 +14,7 @@ process.env.TZ = 'Europe/Vienna';
 admin.initializeApp();
 
 exports.api = https.onRequest(
-  { secrets: [KEYS.ADMIN_KEY] },
+  { secrets: [KEYS.ADMIN_KEY, KEYS.JWT_SECRET] },
   apiApp
 );
 

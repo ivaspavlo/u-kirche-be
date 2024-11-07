@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
-import { Controller, HttpServer } from '../';
-import { userService } from '../../../core/services/user.service';
-import { KEYS } from '../../../core/constants';
-import { HttpResponseError } from '../../../core/utils/http-response-error';
+import { Controller, HttpServer } from './';
+import { userService } from '../../core/services/user.service';
+import { KEYS } from '../../core/constants';
+import { HttpResponseError } from '../../core/utils/http-response-error';
 
 export class UserController implements Controller {
   initialize(httpServer: HttpServer): void {

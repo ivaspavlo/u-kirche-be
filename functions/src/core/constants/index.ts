@@ -1,5 +1,6 @@
 export enum KEYS {
   ADMIN_KEY = 'ADMIN_KEY',
+  JWT_SECRET = 'JWT_SECRET',
   SUPERADMIN_KEY = 'SUPERADMIN_KEY'
 };
 

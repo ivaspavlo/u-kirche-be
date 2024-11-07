@@ -4,18 +4,12 @@ import { COLLECTION } from '../constants';
 import { UserModel } from '../data/models/user/user.model';
 
 class UserService {
-  async createUser(
-    body: IUserBody
-  ): Promise<IUserClient> {
+  async createUser(body: IUserBody): Promise<IUserClient> {
     const userInput: IUserFirebase = await UserModel.fromBody(body);
     const userRef = await admin.firestore()
       .collection(COLLECTION.USERS)
       .add(userInput);
     return UserModel.toBody(userRef);
-  }
-
-  async login(): Promise<any> {
-    
   }
 }
 

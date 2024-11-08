@@ -32,6 +32,7 @@ A Node.js REST API built with TypeScript, Express, Firebase Authentication, Fire
 
 ## Commands description
   - kill process not ended gracefully: `lsof -t -i tcp:5004 | xargs kill`
+  - kill debug process not ended gracefully: `lsof -t -i tcp:9229 | xargs kill`
   - list all Firebase projects: `firebase projects:list`
   - switch to another Firebase project: `firebase use <project_name>`
   - set Firebase secret: `firebase functions:secrets:set <secret_name>`

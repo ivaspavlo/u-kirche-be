@@ -10,7 +10,7 @@ import { validateLoginField } from '../data/models/auth/auth.validators';
 const bcrypt = require('bcrypt');
 
 class AuthService {
-  async login(body: any): Promise<any> {
+  public async login(body: any): Promise<any> {
     const input: ILoginReq = await this.fromBody(body);
     const user = await this.getUser(input);
 

@@ -5,5 +5,5 @@ export function validateEmail(email: string): boolean {
 }
 
 export function validateString(value: unknown): boolean {
-    return typeof value !== 'string';
+    return typeof value === 'string';
 }

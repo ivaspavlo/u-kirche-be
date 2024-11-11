@@ -9,7 +9,7 @@ export interface Controller {
 
 export class HttpServer {
 
-    constructor(public readonly express:Express) {}
+    constructor(public readonly express: Express) {}
 
     get(path: string, requestHandler: RequestHandler, claims?:MyClaims[]): void {
         this.express.get(path, this._catchErrorHandler(requestHandler, claims));

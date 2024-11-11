@@ -8,7 +8,8 @@ export class AuthController implements Controller {
   }
 
   private readonly login: RequestHandler = async (req, res, next) => {
-    res.send(authService.login(req.body));
+    const jwt = await authService.login(req.body);
+    res.send(jwt);
     next();
   }
 }

@@ -40,4 +40,4 @@ A Node.js REST API built with TypeScript, Express, Firebase Authentication, Fire
   - run before deploying to hosting: `firebase init hosting:github`
 
 ## Project structure
-  - Project includes two package.json files. The one in the root folder is for convenience purposes only: to be able to start he app without cd. It mirrors the commands in the main package.json that is located in ./functions.
+  - Project includes two package.json files. The one in the root folder is for convenience purposes only: to be able to start he app without `cd` command. It mirrors the commands in the main package.json that is located in ./functions.

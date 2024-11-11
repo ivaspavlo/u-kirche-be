@@ -14,7 +14,7 @@ class AuthService {
     const input: ILoginReq = await this.fromBody(body);
     const user = await this.getUser(input);
 
-    this.checkPassword(body, user);
+    await this.checkPassword(body, user);
 
     const jwt = this.generateJwt(
       { id: user.email },

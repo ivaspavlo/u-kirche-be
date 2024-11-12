@@ -10,7 +10,9 @@ export class ArticlesService {
   }
 
   private doc(productId?:string) {
-    if (!productId) return this.collection().doc();
+    if (!productId) {
+      return this.collection().doc()
+    };
     return this.collection().doc(productId);
   }
 

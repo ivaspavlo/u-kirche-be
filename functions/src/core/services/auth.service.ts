@@ -6,8 +6,10 @@ import { COLLECTION, KEYS } from '../constants';
 import { ILoginReq, ILoginRes } from '../data/models/auth/auth.interface';
 import { HttpResponseError } from '../utils/http-response-error';
 import { validateLoginField } from '../data/models/auth/auth.validators';
+import { defineString } from 'firebase-functions/params';
 
 const bcrypt = require('bcrypt');
+const jwtExp = defineString(KEYS.JWT_EXPIRE);
 
 class AuthService {
   public async login(body: any): Promise<any> {
@@ -17,9 +19,9 @@ class AuthService {
     await this.checkPassword(body, user);
 
     const jwt = this.generateJwt(
-      { id: user.email },
+      { email: user.email },
       process.env[KEYS.JWT_SECRET] as string,
-      { expiresIn: '15m' }
+      { expiresIn: jwtExp }
     );
 
     return this.toBody(user, jwt);

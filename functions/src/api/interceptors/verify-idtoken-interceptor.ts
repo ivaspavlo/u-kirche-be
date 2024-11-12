@@ -5,10 +5,10 @@ import { NextFunction, Request, Response } from 'express';
 import { MyClaims } from '../../index';
 
 import { ErrorResponseBody } from '../../core/utils/http-response-error';
-import { ENV_KEY, ENV_MODE } from '../../core/constants';
+import { KEYS, ENV_MODE } from '../../core/constants';
 
 const { defineString } = require('firebase-functions/params');
-const env = defineString(ENV_KEY.MODE);
+const env = defineString(KEYS.MODE);
 
 const _idToken = (req:Request) => {
     const authorizationHeaderValue:string | undefined =

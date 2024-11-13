@@ -1,13 +1,13 @@
 export type TUserRole = 'admin' | 'superadmin';
 
-export interface IUserBody {
+export interface IUserReq {
   name: string;
   email: string;
   password: string;
   adminKey: string;
 }
 
-export interface IUserClient {
+export interface IUserRes {
   id: string;
   name: string;
   email: string;
@@ -16,7 +16,7 @@ export interface IUserClient {
   created: string;
 }
 
-export interface IUserFirebase {
+export interface IUserFirestore {
   name: string;
   email: string;
   role: TUserRole;

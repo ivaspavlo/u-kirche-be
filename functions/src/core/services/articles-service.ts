@@ -1,8 +1,7 @@
 import * as admin from 'firebase-admin';
-import { FieldValue } from 'firebase-admin/firestore';
-import { Article } from '../data/models/article/article';
+import { DocumentReference } from 'firebase-admin/firestore';
 import { COLLECTION } from '../constants';
-import { ArticleFirestoreModel } from '../data/models/article/firestore/article-firestore-model';
+import { IArticleFirestore, IArticleReq, IArticleRes } from '../data/models/article/article.interface';
 
 export class ArticlesService {
   private collection() {
@@ -16,19 +15,31 @@ export class ArticlesService {
     return this.collection().doc(productId);
   }
 
-  async getArticleById(id: string): Promise<Article | null> {
+  async getArticleById(id: string): Promise<IArticleRes | null> {
     const res = await this.doc(id).get();
     if (!res.exists) {
       return null;
     }
-    return ArticleFirestoreModel.fromDocumentData(res.data());
+    return await this.#toBody(await this.doc(id));
   }
 
-  async createArticle(article: Article): Promise<Article> {
-    const articleRef = this.doc();
-    const data = ArticleFirestoreModel.fromEntity(article).toDocumentData(articleRef.id, FieldValue.serverTimestamp());
-    await articleRef.set(data);
-    return ArticleFirestoreModel.fromDocumentData((await articleRef.get()).data());
+  async createArticle(body: unknown): Promise<IArticleRes> {
+    const articleReq: IArticleReq = this.#fromBody(body);
+    const articleRef = await this.collection().add(articleReq);
+    return await this.#toBody(articleRef);
+  }
+
+  #fromBody(body: unknown): IArticleReq {
+    return;
+  }
+
+  async #toBody(articleRef: DocumentReference): Promise<IArticleRes> {
+    const article = (await articleRef.get()).data() as IArticleFirestore;
+    return {
+      ...article,
+      createdAt: (await articleRef.get()).createTime,
+      id: articleRef.id
+    }
   }
 }
 

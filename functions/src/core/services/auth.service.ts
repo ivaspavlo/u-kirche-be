@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 import * as jwt from 'jsonwebtoken';
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore';
-import { IUserFirebase } from '../data/models/user/user.interface';
+import { IUserFirestore } from '../data/models/user/user.interface';
 import { COLLECTION, KEYS } from '../constants';
 import { ILoginReq, ILoginRes } from '../data/models/auth/auth.interface';
 import { HttpResponseError } from '../utils/http-response-error';
@@ -27,7 +27,7 @@ class AuthService {
     return this.toBody(user, jwt);
   }
 
-  private async getUser(input: ILoginReq): Promise<IUserFirebase> {
+  private async getUser(input: ILoginReq): Promise<IUserFirestore> {
     const queryByEmail = await admin.firestore()
       .collection(COLLECTION.USERS)
       .where('email', '==', input.email)
@@ -38,7 +38,7 @@ class AuthService {
     }
 
     const userDocumentSnapshot: QueryDocumentSnapshot | undefined = queryByEmail.docs.find(d => !!d);
-    const user = userDocumentSnapshot.data() as IUserFirebase;
+    const user = userDocumentSnapshot.data() as IUserFirestore;
 
     return user;
   }
@@ -47,7 +47,7 @@ class AuthService {
     return jwt.sign(data, secret, options);
   }
 
-  private async checkPassword(input: ILoginReq, user: IUserFirebase): Promise<any> {
+  private async checkPassword(input: ILoginReq, user: IUserFirestore): Promise<any> {
     const isPasswordCorrect = await bcrypt.compare(input.password, user.password);
 
     if (!isPasswordCorrect) {
@@ -62,7 +62,7 @@ class AuthService {
     return body as ILoginReq;
   }
 
-  private toBody(user: IUserFirebase, jwt: string): ILoginRes {
+  private toBody(user: IUserFirestore, jwt: string): ILoginRes {
     return {
       jwt
     }

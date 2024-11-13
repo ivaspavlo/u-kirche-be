@@ -1,4 +1,4 @@
-import { HttpResponseError } from '../../../../utils/http-response-error';
+import { HttpResponseError } from '../../../utils/http-response-error';
 
 export function validateStingNotEmpty(value: string): void {
   if (!value?.length) {

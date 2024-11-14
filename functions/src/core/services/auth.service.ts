@@ -1,12 +1,12 @@
 import * as admin from 'firebase-admin';
 import * as jwt from 'jsonwebtoken';
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore';
+import { defineString } from 'firebase-functions/params';
 import { IUserFirestore } from '../data/models/user/user.interface';
 import { COLLECTION, KEYS } from '../constants';
 import { ILoginReq, ILoginRes } from '../data/models/auth/auth.interface';
 import { HttpResponseError } from '../utils/http-response-error';
 import { validateLoginField } from '../data/models/auth/auth.validators';
-import { defineString } from 'firebase-functions/params';
 
 const bcrypt = require('bcrypt');
 const jwtExp = defineString(KEYS.JWT_EXPIRE);
@@ -21,7 +21,7 @@ class AuthService {
     const jwt = this.generateJwt(
       { email: user.email },
       process.env[KEYS.JWT_SECRET] as string,
-      { expiresIn: jwtExp }
+      { expiresIn: jwtExp.value() }
     );
 
     return this.toBody(user, jwt);

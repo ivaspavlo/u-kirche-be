@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = defineInt(KEYS.SALT_ROUNDS);
 
 class UserService {
+
   public async createUser(body: IUserReq): Promise<IUserRes> {
     const userInput: IUserFirestore = await this.fromBody(body);
     const userRef = await admin.firestore()

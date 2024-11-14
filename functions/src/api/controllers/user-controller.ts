@@ -6,12 +6,12 @@ import { HttpResponseError } from '../../core/utils/http-response-error';
 
 export class UserController implements Controller {
   initialize(httpServer: HttpServer): void {
-    httpServer.post('/user', this.createUser.bind(this), ['admin', 'superadmin']);
+    httpServer.post('/user', this.createUser.bind(this), ['superadmin']);
   }
 
   private readonly createUser: RequestHandler = async (req, res, next) => {
     if (req?.body?.adminKey !== process.env[KEYS.ADMIN_KEY]) {
-      throw new HttpResponseError(401, 'INVALID_ADMIN_KEY', 'Please, add a valid `adminKey` to body');
+      throw new HttpResponseError(401, 'INVALID_ADMIN_KEY', 'Admin key is invalid');
     }
     const userCreated = await userService.createUser(req?.body);
     res.send({ 'user': userCreated });

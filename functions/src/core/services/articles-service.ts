@@ -2,6 +2,7 @@ import * as admin from 'firebase-admin';
 import { DocumentReference } from 'firebase-admin/firestore';
 import { COLLECTION } from '../constants';
 import { IArticleFirestore, IArticleReq, IArticleRes } from '../data/models/article/article.interface';
+import { validateStingNotEmpty } from '../data/models/article/article-validators';
 
 export class ArticlesService {
   private collection() {
@@ -24,12 +25,20 @@ export class ArticlesService {
   }
 
   async createArticle(body: unknown): Promise<IArticleRes> {
-    const articleReq: IArticleReq = this.#fromBody(body);
+    const articleReq: IArticleReq = this.fromBody(body);
     const articleRef = await this.collection().add(articleReq);
     return await this.#toBody(articleRef);
   }
 
-  #fromBody(body: unknown): IArticleReq {
+  #validate(body: any): void {
+    validateStingNotEmpty(body?.title);
+    validateStingNotEmpty(body?.content);
+    validateStingNotEmpty(body?.authorId);
+  }
+
+  public fromBody(body: any): IArticleReq {
+    this.#validate(body);
+
     return;
   }
 

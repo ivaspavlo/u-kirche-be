@@ -1,5 +1,5 @@
-import { HttpResponseError } from '../../../utils/http-response-error';
-import { validateEmail } from '../../../utils/validators';
+import { HttpResponseError } from '../../utils/http-response-error';
+import { validateEmail } from '../../utils/validators';
 
 export function validateUserName(name: string): void {
     if (!name?.length) {

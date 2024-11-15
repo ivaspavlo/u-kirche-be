@@ -1,12 +1,12 @@
 import express, { Express } from 'express';
 import { HttpServer } from './controllers';
-import { interceptors } from './interceptors';
+import { middleware } from './middleware';
 import { controllers } from './controllers/controllers';
 
 const apiApp: Express = express();
 const httpServer = new HttpServer(apiApp);
 
-interceptors.forEach((interceptor) => {
+middleware.forEach((interceptor) => {
     apiApp.use(interceptor);
 });
 

@@ -3,7 +3,7 @@ import { Controller, HttpServer } from './';
 import { articlesService } from '../../core/services/articles-service';
 import { HttpResponseError } from '../../core/utils/http-response-error';
 import { ROLE } from '../../core/constants';
-import { IArticleReq } from '../../core/data/models/article/article.interface';
+import { IArticleReq } from '../../core/models/article/article.interface';
 
 export class ArticleController implements Controller {
 

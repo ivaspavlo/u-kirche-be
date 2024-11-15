@@ -1,15 +1,16 @@
 import * as admin from 'firebase-admin';
 import { DocumentReference } from 'firebase-admin/firestore';
 import { defineInt } from 'firebase-functions/params';
-import { IUserReq, IUserRes, IUserFirestore } from '../data/models/user/user.interface';
+import { IUserReq, IUserRes, IUserFirestore } from '../models/user/user.interface';
 import { COLLECTION, KEYS, ROLE } from '../constants';
-import { validateUserEmail, validateUserName, validateUserPassword } from '../data/models/user/user.validators';
+import { validateUserEmail, validateUserName, validateUserPassword } from '../models/user/user.validators';
 import { HttpResponseError } from '../utils/http-response-error';
 
 const bcrypt = require('bcrypt');
 const saltRounds = defineInt(KEYS.SALT_ROUNDS);
 
 class UserService {
+
   public async createUser(body: IUserReq): Promise<IUserRes> {
     const userInput: IUserFirestore = await this.fromBody(body);
     const userRef = await admin.firestore()

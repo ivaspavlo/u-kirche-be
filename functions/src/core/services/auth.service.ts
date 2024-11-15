@@ -2,11 +2,11 @@ import * as admin from 'firebase-admin';
 import * as jwt from 'jsonwebtoken';
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 import { defineString } from 'firebase-functions/params';
-import { IUserFirestore } from '../data/models/user/user.interface';
+import { IUserFirestore } from '../models/user/user.interface';
+import { validateLoginField } from '../models/auth/auth.validators';
+import { ILoginReq, ILoginRes } from '../models/auth/auth.interface';
 import { COLLECTION, KEYS } from '../constants';
-import { ILoginReq, ILoginRes } from '../data/models/auth/auth.interface';
 import { HttpResponseError } from '../utils/http-response-error';
-import { validateLoginField } from '../data/models/auth/auth.validators';
 
 const bcrypt = require('bcrypt');
 const jwtExp = defineString(KEYS.JWT_EXPIRE);
@@ -24,7 +24,7 @@ class AuthService {
       { expiresIn: jwtExp.value() }
     );
 
-    return this.toBody(user, jwt);
+    return this.toBody(jwt);
   }
 
   private async getUser(input: ILoginReq): Promise<IUserFirestore> {
@@ -62,10 +62,8 @@ class AuthService {
     return body as ILoginReq;
   }
 
-  private toBody(user: IUserFirestore, jwt: string): ILoginRes {
-    return {
-      jwt
-    }
+  private toBody(jwt: string): ILoginRes {
+    return { jwt }
   }
 }
 

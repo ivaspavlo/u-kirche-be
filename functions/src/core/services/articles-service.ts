@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
 import { DocumentReference } from 'firebase-admin/firestore';
 import { COLLECTION } from '../constants';
-import { IArticleFirestore, IArticleReq, IArticleRes } from '../data/models/article/article.interface';
-import { validateStingNotEmpty } from '../data/models/article/article-validators';
+import { IArticleFirestore, IArticleReq, IArticleRes } from '../models/article/article.interface';
+import { validateStingNotEmpty } from '../models/article/article-validators';
 
 export class ArticlesService {
   private collection() {

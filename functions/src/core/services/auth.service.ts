@@ -2,9 +2,10 @@ import * as admin from 'firebase-admin';
 import * as jwt from 'jsonwebtoken';
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 import { defineString } from 'firebase-functions/params';
-import { IUserFirestore } from '../models/user/user.interface';
+import { Request } from 'express';
+import { IUser } from '../models/user/user.interface';
 import { validateLoginField } from '../models/auth/auth.validators';
-import { ILoginReq, ILoginRes } from '../models/auth/auth.interface';
+import { ILoginReq, ILoginRes, IParsedJwt } from '../models/auth/auth.interface';
 import { COLLECTION, KEYS } from '../constants';
 import { HttpResponseError } from '../utils/http-response-error';
 
@@ -13,21 +14,46 @@ const jwtExp = defineString(KEYS.JWT_EXPIRE);
 
 class AuthService {
   public async login(body: any): Promise<any> {
-    const input: ILoginReq = await this.fromBody(body);
-    const user = await this.getUser(input);
+    const input: ILoginReq = await this.#fromBody(body);
+    const user = await this.#getUser(input);
 
-    await this.checkPassword(body, user);
+    await this.#checkPassword(body, user.password);
 
-    const jwt = this.generateJwt(
-      { email: user.email },
+    const jwt = this.#generateJwt(
+      { id: user.id },
       process.env[KEYS.JWT_SECRET] as string,
       { expiresIn: jwtExp.value() }
     );
 
-    return this.toBody(jwt);
+    return this.#toBody(jwt);
   }
 
-  private async getUser(input: ILoginReq): Promise<IUserFirestore> {
+  public extractJwt(req: Request): string {
+    const authData: string | undefined = String(req?.headers?.authorization);
+    const jwt: string = authData?.includes('Bearer ')
+        ? authData.split(' ')[1]
+        : '';
+    return jwt;
+  }
+
+  public verifyJwt(value: string): boolean {
+    try {
+      jwt.verify(value, process.env[KEYS.JWT_SECRET]);
+      return true;
+    } catch (e: any) {
+      return false;
+    }
+  }
+
+  public parseJwt(value): IParsedJwt | null {
+    try {
+      return JSON.parse(Buffer.from(value!.split('.')[1], 'base64').toString());
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async #getUser(input: ILoginReq): Promise<IUser> {
     const queryByEmail = await admin.firestore()
       .collection(COLLECTION.USERS)
       .where('email', '==', input.email)
@@ -38,31 +64,36 @@ class AuthService {
     }
 
     const userDocumentSnapshot: QueryDocumentSnapshot | undefined = queryByEmail.docs.find(d => !!d);
-    const user = userDocumentSnapshot.data() as IUserFirestore;
+    const user = userDocumentSnapshot.data() as IUser;
 
-    return user;
+    return {
+      id: userDocumentSnapshot.id,
+      createdAt: userDocumentSnapshot.createTime,
+      updatedAt: userDocumentSnapshot.updateTime,
+      ...user
+    };
   }
 
-  private generateJwt(data: object, secret: string, options: object = {}): string | null {
+  #generateJwt(data: object, secret: string, options: object = {}): string | null {
     return jwt.sign(data, secret, options);
   }
 
-  private async checkPassword(input: ILoginReq, user: IUserFirestore): Promise<any> {
-    const isPasswordCorrect = await bcrypt.compare(input.password, user.password);
+  async #checkPassword(input: ILoginReq, password: string): Promise<void> {
+    const isPasswordCorrect = await bcrypt.compare(input.password, password);
 
     if (!isPasswordCorrect) {
       throw new HttpResponseError(401, 'Incorrect credentials');
     }
   }
 
-  private async fromBody(body: any): Promise<ILoginReq> {
+  async #fromBody(body: any): Promise<ILoginReq> {
     validateLoginField(body?.email);
     validateLoginField(body?.password);
     // no need to map
     return body as ILoginReq;
   }
 
-  private toBody(jwt: string): ILoginRes {
+  #toBody(jwt: string): ILoginRes {
     return { jwt }
   }
 }

@@ -6,9 +6,6 @@ import { KEYS } from './core/constants';
 const { defineString } = require('firebase-functions/params');
 const env = defineString(KEYS.MODE);
 
-export type UserRole = 'admin' | 'superadmin';
-export type MyClaims = 'authenticated' | UserRole;
-
 process.env.TZ = 'Europe/Vienna';
 
 admin.initializeApp();

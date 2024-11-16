@@ -8,7 +8,6 @@ import { IArticleReq } from '../../core/models/article/article.interface';
 export class ArticleController implements Controller {
 
   initialize(httpServer: HttpServer,): void {
-    // If claims are equal to ['user'], that means the same as 'authenticated'
     httpServer.post('/article', this.createArticle.bind(this), [ROLE.ADMIN, ROLE.SUPERADMIN]);
     httpServer.get('/article/:id', this.getArticle.bind(this), []);
   }

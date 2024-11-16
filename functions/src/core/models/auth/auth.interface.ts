@@ -7,3 +7,7 @@ export interface ILoginReq {
 export interface ILoginRes {
   jwt: string;
 }
+
+export interface IParsedJwt {
+  id: string;
+}

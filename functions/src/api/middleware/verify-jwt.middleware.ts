@@ -1,4 +1,3 @@
-import { logger } from 'firebase-functions';
 import { NextFunction, Request, Response } from 'express';
 import { ErrorResponseBody } from '../../core/utils/http-response-error';
 import { authService } from '../../core/services/auth.service';
@@ -10,7 +9,6 @@ export const verifyJwtMiddleware = (async (req: Request, res: Response, next: Ne
     const jwt = authService.extractJwt(req);
 
     if (!jwt?.length) {
-        logger.error(`Missing JWT`);
         req.authenticated = false;
         next();
         return;

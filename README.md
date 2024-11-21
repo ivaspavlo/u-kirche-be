@@ -1,6 +1,6 @@
 # Ukrainische Kirche (ukrainische-kirche-be)
 
-A Node.js REST API built with TypeScript, Express, Firebase Authentication, Firebase Admin SDK, and Firestore.
+A Node.js REST API built with TypeScript, Express.js, Firebase Admin SDK, and Firestore.
 
 ## Important features:
 

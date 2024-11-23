@@ -4,9 +4,9 @@ import { ArticleController } from './articles-controller';
 import { UserController } from './user-controller';
 import { AuthController } from './auth-controller';
 
-export const controllers: Array<Controller> = [
+export const controllers: Controller[] = [
     new RootController(),
     new ArticleController(),
     new UserController(),
-    new AuthController
+    new AuthController()
 ];

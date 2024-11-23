@@ -2,6 +2,7 @@ import * as logger from 'firebase-functions/logger';
 import { Express, NextFunction, Request, RequestHandler, Response } from 'express';
 import { ErrorResponseBody, HttpResponseError } from '../../core/utils/http-response-error';
 import { TClaim } from '../../core/models/user/user.interface';
+import { ERROR_CODE } from '../../core/constants';
 
 export interface Controller {
     initialize(httpServer: HttpServer): void;
@@ -36,8 +37,8 @@ export class HttpServer {
         if (!isAllowed) {
             throw new HttpResponseError(
                 403,
-                'FORBIDDEN',
-                'Not authorized'
+                ERROR_CODE.FORBIDDEN,
+                'Access not authorized for this role'
             );
         }
     };
@@ -51,22 +52,19 @@ export class HttpServer {
                 logger.error(`[${req.method.toUpperCase()}] ${req.path} ${error}`);
 
                 if (error instanceof HttpResponseError) {
-                    res.send(
+                    res.status(error.status).send(
                         new ErrorResponseBody({
-                            status: error.status,
                             code: error.code,
-                            description: error.description,
+                            description: error.description
                         })
                     );
-                    next();
                     return;
                 }
 
                 res.statusCode = 500;
                 res.send(
                     new ErrorResponseBody({
-                        status: 500,
-                        code: 'INTERNAL_ERROR',
+                        code: ERROR_CODE.INTERNAL_ERROR,
                         description: 'An internal error occurred, please contact support',
                     })
                 );

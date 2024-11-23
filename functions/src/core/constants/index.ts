@@ -22,3 +22,10 @@ export enum ROLE {
   ADMIN = 'admin',
   SUPERADMIN = 'superadmin'
 }
+
+export enum ERROR_CODE {
+  UNAUTHORIZED = 'UNAUTHORIZED',
+  INTERNAL_ERROR = 'INTERNAL_ERROR',
+  FORBIDDEN = 'FORBIDDEN',
+  UNKNOWN = 'UNKNOWN'
+}

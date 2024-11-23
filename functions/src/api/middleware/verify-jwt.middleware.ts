@@ -3,7 +3,7 @@ import { ErrorResponseBody } from '../../core/utils/http-response-error';
 import { authService } from '../../core/services/auth.service';
 import { userService } from '../../core/services/user.service';
 import { IUserRes } from '../../core/models/user/user.interface';
-import { ROLE } from '../../core/constants';
+import { ERROR_CODE, ROLE } from '../../core/constants';
 
 export const verifyJwtMiddleware = (async (req: Request, res: Response, next: NextFunction) => {
     const jwt = authService.extractJwt(req);
@@ -18,8 +18,7 @@ export const verifyJwtMiddleware = (async (req: Request, res: Response, next: Ne
 
     if (!isValid) {
         res.status(401).send(new ErrorResponseBody({
-            status: 401,
-            code: 'UNAUTHORIZED',
+            code: ERROR_CODE.UNAUTHORIZED,
             description: 'Invalid JWT',
         }));
     }
@@ -27,8 +26,7 @@ export const verifyJwtMiddleware = (async (req: Request, res: Response, next: Ne
     const parsedJwt = authService.parseJwt(jwt);
     if (!parsedJwt) {
         res.status(401).send(new ErrorResponseBody({
-            status: 401,
-            code: 'UNAUTHORIZED',
+            code: ERROR_CODE.UNAUTHORIZED,
             description: 'Invalid JWT',
         }));
     }

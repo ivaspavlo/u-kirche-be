@@ -16,7 +16,7 @@ declare global {
             /**
              * Indicates verified user claims.
              */
-            claims?: Claims
+            claims?: Claims;
         }
     }
 }

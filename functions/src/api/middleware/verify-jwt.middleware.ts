@@ -5,7 +5,7 @@ import { userService } from '../../core/services/user.service';
 import { IUserRes } from '../../core/models/user/user.interface';
 import { ERROR_CODE, ROLE } from '../../core/constants';
 
-export const verifyJwtMiddleware = (async (req: Request, res: Response, next: NextFunction) => {
+export const verifyJwtMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const jwt = authService.extractJwt(req);
 
     if (!jwt?.length) {
@@ -17,18 +17,22 @@ export const verifyJwtMiddleware = (async (req: Request, res: Response, next: Ne
     const isValid = authService.verifyJwt(jwt);
 
     if (!isValid) {
-        res.status(401).send(new ErrorResponseBody({
-            code: ERROR_CODE.UNAUTHORIZED,
-            description: 'Invalid JWT',
-        }));
+        res.status(401).send(
+            new ErrorResponseBody({
+                code: ERROR_CODE.UNAUTHORIZED,
+                description: 'Invalid JWT'
+            })
+        );
     }
 
     const parsedJwt = authService.parseJwt(jwt);
     if (!parsedJwt) {
-        res.status(401).send(new ErrorResponseBody({
-            code: ERROR_CODE.UNAUTHORIZED,
-            description: 'Invalid JWT',
-        }));
+        res.status(401).send(
+            new ErrorResponseBody({
+                code: ERROR_CODE.UNAUTHORIZED,
+                description: 'Invalid JWT'
+            })
+        );
     }
 
     const user: IUserRes = await userService.getUserById(parsedJwt.id);
@@ -40,4 +44,4 @@ export const verifyJwtMiddleware = (async (req: Request, res: Response, next: Ne
     };
 
     req.next();
-});
+};

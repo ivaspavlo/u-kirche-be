@@ -1,13 +1,13 @@
 export interface ILoginReq {
-  email: string;
-  password: string;
-  adminKey?: string;
+    email: string;
+    password: string;
+    adminKey?: string;
 }
 
 export interface ILoginRes {
-  jwt: string;
+    jwt: string;
 }
 
 export interface IParsedJwt {
-  id: string;
+    id: string;
 }

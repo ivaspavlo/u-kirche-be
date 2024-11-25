@@ -10,9 +10,6 @@ process.env.TZ = 'Europe/Vienna';
 
 admin.initializeApp();
 
-exports.api = https.onRequest(
-  { secrets: [KEYS.ADMIN_KEY, KEYS.JWT_SECRET] },
-  apiApp
-);
+exports.api = https.onRequest({ secrets: [KEYS.ADMIN_KEY, KEYS.JWT_SECRET] }, apiApp);
 
 logger.log(`App started in mode: ${env.value()}`);

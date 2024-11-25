@@ -10,63 +10,57 @@ const bcrypt = require('bcrypt');
 const saltRounds = defineInt(KEYS.SALT_ROUNDS);
 
 class UserService {
+    public async createUser(body: IUserReq): Promise<IUserRes> {
+        const userInput: IUserRegister = await this.fromBody(body);
 
-  public async createUser(body: IUserReq): Promise<IUserRes> {
-    const userInput: IUserRegister = await this.fromBody(body);
+        const userRef = await admin.firestore().collection(COLLECTION.USERS).add(userInput);
 
-    const userRef = await admin.firestore()
-      .collection(COLLECTION.USERS)
-      .add(userInput);
-
-    return this.toBody(userRef);
-  }
-
-  public async getUserById(id: string): Promise<IUserRes> {
-    const user = await admin.firestore()
-      .collection(COLLECTION.USERS)
-      .doc(id);
-
-    return this.toBody(user);
-  }
-
-  public async fromBody(body: IUserReq): Promise<IUserRegister> {
-    validateUserName(body?.name);
-    validateUserEmail(body?.email);
-    validateUserPassword(body?.password);
-
-    const existingUser = await admin.firestore()
-      .collection(COLLECTION.USERS)
-      .where('email', '==', body.email).get();
-
-    if (!existingUser.empty) {
-      throw new HttpResponseError(400, 'Email already registered');
+        return this.toBody(userRef);
     }
 
-    const hashedPassword = await bcrypt.hash(
-      body.password,
-      saltRounds.value()
-    );
+    public async getUserById(id: string): Promise<IUserRes> {
+        const user = await admin.firestore().collection(COLLECTION.USERS).doc(id);
 
-    return {
-      name: body.name,
-      email: body.email,
-      password: hashedPassword,
-      role: ROLE.ADMIN
+        return this.toBody(user);
     }
-  }
 
-  public async toBody(docRef: DocumentReference): Promise<IUserRes> {
-    const user = (await docRef.get()).data();
+    public async fromBody(body: IUserReq): Promise<IUserRegister> {
+        validateUserName(body?.name);
+        validateUserEmail(body?.email);
+        validateUserPassword(body?.password);
 
-    return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      updatedAt: user.lastUpdated,
-      createdAt: user.created
+        const existingUser = await admin
+            .firestore()
+            .collection(COLLECTION.USERS)
+            .where('email', '==', body.email)
+            .get();
+
+        if (!existingUser.empty) {
+            throw new HttpResponseError(400, 'Email already registered');
+        }
+
+        const hashedPassword = await bcrypt.hash(body.password, saltRounds.value());
+
+        return {
+            name: body.name,
+            email: body.email,
+            password: hashedPassword,
+            role: ROLE.ADMIN
+        };
     }
-  }
+
+    public async toBody(docRef: DocumentReference): Promise<IUserRes> {
+        const user = (await docRef.get()).data();
+
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            updatedAt: user.lastUpdated,
+            createdAt: user.created
+        };
+    }
 }
 
 export const userService: UserService = new UserService();

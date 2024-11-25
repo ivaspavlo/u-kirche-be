@@ -13,8 +13,8 @@ export class HttpResponseError extends Error {
 export class ErrorResponseBody {
     constructor(
         public error: {
-            code: string,
-            description: string
+            code: string;
+            description: string;
         }
     ) {}
 }

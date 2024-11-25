@@ -9,7 +9,6 @@ export interface Controller {
 }
 
 export class HttpServer {
-
     constructor(public readonly express: Express) {}
 
     get(path: string, requestHandler: RequestHandler, claims?: TClaim[]): void {
@@ -35,11 +34,7 @@ export class HttpServer {
         }
         const isAllowed = !!claims.find((c) => req.claims[c]);
         if (!isAllowed) {
-            throw new HttpResponseError(
-                403,
-                ERROR_CODE.FORBIDDEN,
-                'Access not authorized for this role'
-            );
+            throw new HttpResponseError(403, ERROR_CODE.FORBIDDEN, 'Access not authorized for this role');
         }
     };
 
@@ -65,7 +60,7 @@ export class HttpServer {
                 res.send(
                     new ErrorResponseBody({
                         code: ERROR_CODE.INTERNAL_ERROR,
-                        description: 'An internal error occurred, please contact support',
+                        description: 'An internal error occurred, please contact support'
                     })
                 );
                 next();

@@ -13,7 +13,7 @@
     "useUnknownInCatchVariables": false,
     "skipLibCheck": true,
     "typeRoots": [
-      "./src/api/@types",
+      "./src/core/utils/@types",
       "./node_modules/@types"
     ],
     "sourceMap": true // required for debugger to run

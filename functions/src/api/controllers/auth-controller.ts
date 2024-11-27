@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
-import { Controller, HttpServer } from './';
 import { authService } from '../../core/services/auth.service';
+import { Controller } from '../../core/interfaces';
+import { HttpServer } from '../../core/utils/http-server';
 
 export class AuthController implements Controller {
     initialize(httpServer: HttpServer): void {

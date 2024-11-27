@@ -1,9 +1,5 @@
 import { DecodedIdToken, UserRecord } from 'firebase-admin/lib/auth';
-import { TClaim } from '../../index';
-
-export type Claims = {
-    [claim in TClaim]: boolean;
-};
+import { TClaim } from '../../../index';
 
 declare global {
     namespace Express {
@@ -16,7 +12,7 @@ declare global {
             /**
              * Indicates verified user claims.
              */
-            claims?: Claims;
+            claims?: TClaim;
         }
     }
 }

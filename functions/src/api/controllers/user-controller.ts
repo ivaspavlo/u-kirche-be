@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
-import { Controller, HttpServer } from './';
 import { userService } from '../../core/services/user.service';
-import { KEYS } from '../../core/constants';
-import { HttpResponseError } from '../../core/utils/http-response-error';
+import { ERROR_CODE, KEYS } from '../../core/constants';
+import { HttpResponseError, HttpServer } from '../../core/utils';
+import { Controller } from '../../core/interfaces';
 
 export class UserController implements Controller {
     initialize(httpServer: HttpServer): void {
@@ -11,7 +11,7 @@ export class UserController implements Controller {
 
     private readonly createUser: RequestHandler = async (req, res, next) => {
         if (req?.body?.adminKey !== process.env[KEYS.ADMIN_KEY]) {
-            throw new HttpResponseError(401, 'INVALID_ADMIN_KEY', 'Admin key is invalid');
+            throw new HttpResponseError(401, ERROR_CODE.UNAUTHORIZED, 'Invalid credentials');
         }
         const userCreated = await userService.createUser(req?.body);
         res.send({ user: userCreated });

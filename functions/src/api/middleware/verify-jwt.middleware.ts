@@ -20,7 +20,7 @@ export const verifyJwtMiddleware = async (req: Request, res: Response, next: Nex
         res.status(401).send(
             new ErrorResponseBody({
                 code: ERROR_CODE.UNAUTHORIZED,
-                description: 'Invalid JWT'
+                description: 'Invalid credentials'
             })
         );
     }
@@ -30,7 +30,7 @@ export const verifyJwtMiddleware = async (req: Request, res: Response, next: Nex
         res.status(401).send(
             new ErrorResponseBody({
                 code: ERROR_CODE.UNAUTHORIZED,
-                description: 'Invalid JWT'
+                description: 'Invalid credentials'
             })
         );
     }

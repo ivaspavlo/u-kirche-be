@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { authService } from '../../core/services/auth.service';
+import { authService } from '../../core/services';
 import { Controller } from '../../core/interfaces';
 import { HttpServer } from '../../core/utils/http-server';
 

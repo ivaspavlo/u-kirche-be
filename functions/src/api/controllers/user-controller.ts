@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { userService } from '../../core/services/user.service';
+import { userService } from '../../core/services';
 import { ERROR_CODE, KEYS } from '../../core/constants';
 import { HttpResponseError, HttpServer } from '../../core/utils';
 import { Controller } from '../../core/interfaces';

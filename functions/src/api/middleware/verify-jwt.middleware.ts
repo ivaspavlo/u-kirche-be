@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { ErrorResponseBody } from '../../core/utils/http-response-error';
-import { authService } from '../../core/services/auth.service';
-import { userService } from '../../core/services/user.service';
+import { authService, userService } from '../../core/services';
 import { IUserRes } from '../../core/models/user/user.interface';
 import { ERROR_CODE, ROLE } from '../../core/constants';
 

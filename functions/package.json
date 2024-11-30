@@ -6,8 +6,8 @@
     "build": "npm run clean && npx tsc",
     "build:watch": "npm run clean && npx tsc --watch",
     "watch": "npm run build:watch | firebase emulators:start --inspect-functions",
-    "prettier": "npx prettier src --check",
-    "prettier:fix": "npm run prettier -- --write"
+    "format": "npx prettier src --check",
+    "format:fix": "npm run prettier -- --write"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.5",
+    "prettier": "^3.4.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"

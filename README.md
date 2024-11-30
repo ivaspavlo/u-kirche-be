@@ -4,9 +4,6 @@ A Node.js REST API built with TypeScript, Express.js, Firebase Admin SDK, and Fi
 
 ## Important features:
 
-### Firebase pricing Blaze plan
-  - Pricing information regarding all aspects of the application can be found [here](https://firebase.google.com/pricing).
-
 ### VS Code debugger
   - Project includes a .vscode/launch.json configuration.
   - After running `npm run serve` command click on the VS Code sidepanel's "Run and debug" button. In the DDL select "Attach debugger" and click "Play".

@@ -25,6 +25,7 @@ export const verifyJwtMiddleware = async (req: Request, res: Response, next: Nex
     }
 
     const parsedJwt = authService.parseJwt(jwt);
+
     if (!parsedJwt) {
         res.status(401).send(
             new ErrorResponseBody({

@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 import { DocumentReference } from 'firebase-admin/firestore';
 import { defineInt } from 'firebase-functions/params';
-import { IUserReq, IUserRes, IUserRegister } from '../models/user/user.interface';
+import { IUserReq, IUserRes, IUserRegister, IUser } from '../models/user/user.interface';
 import { COLLECTION, KEYS, ROLE } from '../constants';
 import { validateUserEmail, validateUserName, validateUserPassword } from '../models/user/user.validators';
 import { HttpResponseError } from '../utils/http-response-error';
@@ -12,16 +12,26 @@ const saltRounds = defineInt(KEYS.SALT_ROUNDS);
 class UserService {
     public async createUser(body: IUserReq): Promise<IUserRes> {
         const userInput: IUserRegister = await this.fromBody(body);
-
         const userRef = await admin.firestore().collection(COLLECTION.USERS).add(userInput);
 
-        return this.toBody(userRef);
+        return this.#toBody(userRef);
     }
 
     public async getUserById(id: string): Promise<IUserRes> {
-        const user = await admin.firestore().collection(COLLECTION.USERS).doc(id);
+        const userRef = await admin.firestore().collection(COLLECTION.USERS).doc(id);
+        return this.#toBody(userRef);
+    }
 
-        return this.toBody(user);
+    public async deleteUser(id: string): Promise<IUserRes> {
+        const userRef = await admin.firestore().collection(COLLECTION.USERS).doc(id);
+        const user = this.#toBody(userRef);
+        await userRef.delete();
+        return user;
+    }
+
+    public async getUsers(): Promise<IUserRes[]> {
+        const users = (await admin.firestore().collection(COLLECTION.USERS).get()).docs;
+        return users.map((d => this.#getUserRes(d.data() as IUser)));
     }
 
     public async fromBody(body: IUserReq): Promise<IUserRegister> {
@@ -49,16 +59,19 @@ class UserService {
         };
     }
 
-    public async toBody(docRef: DocumentReference): Promise<IUserRes> {
-        const user = (await docRef.get()).data();
+    async #toBody(docRef: DocumentReference): Promise<IUserRes> {
+        const user = (await docRef.get()).data() as IUser;
+        return this.#getUserRes(user);
+    }
 
+    #getUserRes(user: IUser): IUserRes {
         return {
             id: user.id,
             name: user.name,
             email: user.email,
             role: user.role,
-            updatedAt: user.lastUpdated,
-            createdAt: user.created
+            updatedAt: user.updatedAt,
+            createdAt: user.createdAt
         };
     }
 }

@@ -24,14 +24,19 @@ class UserService {
 
     public async deleteUser(id: string): Promise<IUserRes> {
         const userRef = await admin.firestore().collection(COLLECTION.USERS).doc(id);
-        const user = this.#toBody(userRef);
+        const user = await this.#toBody(userRef);
         await userRef.delete();
         return user;
     }
 
     public async getUsers(): Promise<IUserRes[]> {
         const users = (await admin.firestore().collection(COLLECTION.USERS).get()).docs;
-        return users.map((d => this.#getUserRes(d.data() as IUser)));
+        return users.map((d => this.#getUserRes({
+            id: d.id,
+            createdAt: d.createTime.toMillis(),
+            updatedAt: d.updateTime.toMillis(),
+            ...d.data()
+        } as IUser)));
     }
 
     public async fromBody(body: IUserReq): Promise<IUserRegister> {

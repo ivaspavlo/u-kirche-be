@@ -15,8 +15,8 @@ export interface IUserRes {
     name: string;
     email: string;
     role: TUserRole;
-    updatedAt: Timestamp;
-    createdAt: Timestamp;
+    updatedAt: number;
+    createdAt: number;
 }
 
 export interface IUserRegister {
@@ -31,7 +31,7 @@ export interface IUser {
     name: string;
     email: string;
     role: TUserRole;
-    updatedAt: Timestamp;
-    createdAt: Timestamp;
+    updatedAt: number;
+    createdAt: number;
     password: string;
 }

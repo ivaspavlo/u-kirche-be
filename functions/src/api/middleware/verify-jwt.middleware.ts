@@ -22,6 +22,7 @@ export const verifyJwtMiddleware = async (req: Request, res: Response, next: Nex
                 description: 'Invalid credentials'
             })
         );
+        return;
     }
 
     const parsedJwt = authService.parseJwt(jwt);

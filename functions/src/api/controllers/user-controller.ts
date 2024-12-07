@@ -8,13 +8,14 @@ export class UserController implements Controller {
     initialize(httpServer: HttpServer): void {
         httpServer.post('/user', this.#createUser.bind(this), ['superadmin']);
         httpServer.delete('/user', this.#deleteUser.bind(this), ['superadmin']);
-        httpServer.get('/user', this.#getUser.bind(this), ['superadmin']);
+        httpServer.get('/user', this.#getUser.bind(this), ['admin', 'superadmin']);
+        httpServer.get('/user/all', this.#getAllUsers.bind(this), ['superadmin']);
     }
 
     readonly #createUser: RequestHandler = async (req, res, next) => {
         this.#verifyAdminKey(req?.body?.adminKey);
-        const user = await userService.createUser(req?.body);
-        res.send({ user });
+        const users = await userService.createUser(req?.body);
+        res.send({ users });
         next();
     };
 
@@ -25,7 +26,12 @@ export class UserController implements Controller {
         next();
     }
 
-    readonly #getUser: RequestHandler = async (_, res, next) => {
+    readonly #getUser: RequestHandler = async (req, res, next) => {
+        res.send({ user: req.user });
+        next();
+    }
+
+    readonly #getAllUsers: RequestHandler = async (_, res, next) => {
         const users = await userService.getUsers();
         res.send({ users });
         next();

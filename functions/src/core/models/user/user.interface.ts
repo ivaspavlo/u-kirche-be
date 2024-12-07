@@ -1,13 +1,18 @@
-import { Timestamp } from 'firebase-admin/firestore';
-
 export type TUserRole = 'admin' | 'superadmin';
 export type TClaim = TUserRole | 'authenticated';
 
-export interface IUserReq {
+export interface IUserRegisterReqRaw {
     name: string;
     email: string;
     password: string;
     adminKey?: string;
+}
+
+export interface IUserRegisterReqFormatted {
+    name: string;
+    email: string;
+    role: TUserRole;
+    password: string;
 }
 
 export interface IUserRes {
@@ -17,13 +22,6 @@ export interface IUserRes {
     role: TUserRole;
     updatedAt: number;
     createdAt: number;
-}
-
-export interface IUserRegister {
-    name: string;
-    email: string;
-    role: TUserRole;
-    password: string;
 }
 
 export interface IUser {

@@ -39,6 +39,7 @@ export const verifyJwtMiddleware = async (req: Request, res: Response, next: Nex
     const user: IUserRes = await userService.getUserById(parsedJwt.id);
 
     req.authenticated = true;
+    req.user = user;
     req.claims = {
         admin: user.role === ROLE.ADMIN,
         superadmin: user.role === ROLE.SUPERADMIN

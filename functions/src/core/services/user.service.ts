@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 import { DocumentReference } from 'firebase-admin/firestore';
 import { defineInt } from 'firebase-functions/params';
-import { IUserReq, IUserRes, IUserRegister, IUser } from '../models/user/user.interface';
+import { IUserRegisterReqRaw, IUserRes, IUserRegisterReqFormatted, IUser } from '../models/user/user.interface';
 import { COLLECTION, KEYS, ROLE } from '../constants';
 import { validateUserEmail, validateUserName, validateUserPassword } from '../models/user/user.validators';
 import { HttpResponseError } from '../utils/http-response-error';
@@ -10,8 +10,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = defineInt(KEYS.SALT_ROUNDS);
 
 class UserService {
-    public async createUser(body: IUserReq): Promise<IUserRes> {
-        const userInput: IUserRegister = await this.fromBody(body);
+    public async createUser(body: IUserRegisterReqRaw): Promise<IUserRes> {
+        const userInput: IUserRegisterReqFormatted = await this.formatRegisterReqBody(body);
         const userRef = await admin.firestore().collection(COLLECTION.USERS).add(userInput);
 
         return this.#toBody(userRef);
@@ -39,7 +39,7 @@ class UserService {
         } as IUser)));
     }
 
-    public async fromBody(body: IUserReq): Promise<IUserRegister> {
+    public async formatRegisterReqBody(body: IUserRegisterReqRaw): Promise<IUserRegisterReqFormatted> {
         validateUserName(body?.name);
         validateUserEmail(body?.email);
         validateUserPassword(body?.password);
@@ -65,8 +65,14 @@ class UserService {
     }
 
     async #toBody(docRef: DocumentReference): Promise<IUserRes> {
-        const user = (await docRef.get()).data() as IUser;
-        return this.#getUserRes(user);
+        const userDocument = await docRef.get();
+        const user = userDocument.data();
+        return this.#getUserRes({
+            id: userDocument.id,
+            createdAt: userDocument.createTime.toMillis(),
+            updatedAt: userDocument.updateTime.toMillis(),
+            ...user
+        } as IUser);
     }
 
     #getUserRes(user: IUser): IUserRes {

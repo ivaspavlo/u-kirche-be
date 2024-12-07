@@ -13,6 +13,11 @@ declare global {
              * Indicates verified user claims.
              */
             claims?: TClaim;
+
+            /**
+             * Contains user data derived from the JWT.
+             */
+            user?: IUserRes;
         }
     }
 }

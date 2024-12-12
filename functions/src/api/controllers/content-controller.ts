@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 import { HttpServer } from '../../core/utils';
 import { Controller } from '../../core/interfaces';
+import { contentService } from 'src/core/services/content.service';
 
 export class ContentController implements Controller {
     initialize(httpServer: HttpServer): void {
@@ -8,8 +9,8 @@ export class ContentController implements Controller {
     }
 
     private readonly getContent: RequestHandler = async (_, res, next) => {
-        // const article = await articlesService.getArticleById();
-        // res.send(article);
+        const content = await contentService.getContent();
+        res.send(content);
         next();
     };
 }

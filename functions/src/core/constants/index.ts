@@ -10,7 +10,8 @@ export enum KEYS {
 
 export enum COLLECTION {
     USERS = 'users',
-    ARTICLES = 'articles'
+    ARTICLES = 'articles',
+    CONTENT = 'content'
 }
 
 export enum ENV_MODE {

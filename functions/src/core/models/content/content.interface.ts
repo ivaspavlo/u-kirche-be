@@ -11,7 +11,7 @@ export interface IPhoneContact {
 export interface IBanner {
   message: ITextContent;
   link: ITextContent;
-  data: Record<string, unknown>;
+  data?: Record<string, unknown>;
 }
 
 export interface ISocialLink {

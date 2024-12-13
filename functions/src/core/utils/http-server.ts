@@ -23,7 +23,7 @@ export class HttpServer {
         this.express.put(path, this.#catchErrorHandler(requestHandler, claims));
     }
 
-    #checkClaims = (req: Request, claims?: TClaim[]) => {
+    readonly #checkClaims = (req: Request, claims?: TClaim[]) => {
         // It means no auth required
         if (!claims?.length) {
             return;

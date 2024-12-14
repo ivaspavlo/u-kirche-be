@@ -20,6 +20,7 @@ export interface ISocialLink {
 }
 
 export interface IContent {
+  id: string;
   phoneContacts: IPhoneContact[];
   socialLinks: ISocialLink[];
   email: string;

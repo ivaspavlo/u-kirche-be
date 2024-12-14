@@ -8,31 +8,31 @@ export function validateContentBody(value: any): void {
     }
 
     if (value?.iban) {
-        validateString(value.iban);
+        validateString(value.iban, 'iban');
     }
 
     if (value?.phoneContacts) {
-        validateArray(value.phoneContacts);
+        validateArray(value.phoneContacts, 'phoneContacts');
 
-        value.phoneContacts.forEach(i => validateTextContent(i));
+        value.phoneContacts.forEach(i => validateTextContent(i, 'phoneContacts'));
     }
 
     if (value?.socialLinks) {
-        validateArray(value.socialLinks);
+        validateArray(value.socialLinks, 'socialLinks');
 
         value.socialLinks.forEach(i => {
-            validateString(i.link);
-            validateString(i.title);
+            validateString(i.link, 'link');
+            validateString(i.title, 'title');
         });
     }
 
     if (value?.headerBanner) {
-        validateString(value.headerBanner.message);
-        validateString(value.headerBanner.link);
+        validateString(value.headerBanner.message, 'message');
+        validateString(value.headerBanner.link, 'link');
     }
 
     if (value?.footerBanner) {
-        validateString(value.footerBanner.message);
-        validateString(value.footerBanner.link);
+        validateString(value.footerBanner.message, 'message');
+        validateString(value.footerBanner.link, 'link');
     }
 }

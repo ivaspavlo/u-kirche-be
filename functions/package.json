@@ -5,7 +5,8 @@
     "clean": "node_modules/.bin/rimraf ./dist",
     "build": "npm run clean && npx tsc",
     "build:watch": "npm run clean && npx tsc --watch",
-    "watch": "npm run build:watch | firebase emulators:start --inspect-functions",
+    "watch": "npm run build:watch | firebase emulators:start --only functions",
+    "watch:db": "npm run build:watch | firebase emulators:start --inspect-functions",
     "format": "npx prettier src --check",
     "format:fix": "npm run prettier -- --write"
   },

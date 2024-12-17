@@ -2,6 +2,7 @@
   "scripts": {
     "build": "npm run --prefix ./functions build",
     "watch": "npm run --prefix ./functions watch",
+    "watch:db": "npm run --prefix ./functions watch:all",
     "clean": "npm run --prefix ./functions clean",
     "build:watch": "npm run --prefix ./functions build:watch"
   }

@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
 import { DocumentReference } from 'firebase-admin/firestore';
 import { COLLECTION } from '../constants';
-import { IArticleFirestore, IArticleReq, IArticleRes } from '../models/article/article.interface';
-import { validateStingNotEmpty } from '../models/article/article-validators';
+import { IArticleFirestore, IArticleReq, IArticleRes } from '../interfaces';
+import { validateStringNotEmpty } from '../validators';
 
 export class ArticlesService {
     private collection() {
@@ -31,9 +31,9 @@ export class ArticlesService {
     }
 
     #validate(body: any): void {
-        validateStingNotEmpty(body?.title);
-        validateStingNotEmpty(body?.content);
-        validateStingNotEmpty(body?.authorId);
+        validateStringNotEmpty(body?.title);
+        validateStringNotEmpty(body?.content);
+        validateStringNotEmpty(body?.authorId);
     }
 
     public fromBody(body: any): IArticleReq {

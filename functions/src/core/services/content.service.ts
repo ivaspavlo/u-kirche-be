@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import { COLLECTION } from '../constants';
-import { IContent } from '../models/content/content.interface';
+import { IContent } from '../interfaces';
 import { validateContentBody, validateNullable, validateObject } from '../validators';
 
 export class ContentService {

@@ -10,19 +10,25 @@ export function validateEmail(email: string): void {
 
 export function validateString(value: unknown, fieldName?: string): void {
   if (typeof value !== 'string') {
-    throw new HttpResponseError(400, 'BAD_REQUEST', `Field must be type string${formatFieldName(fieldName)}`);
+    throw new HttpResponseError(400, 'BAD_REQUEST', `Field must be of type string${formatFieldName(fieldName)}`);
+  }
+}
+
+export function validateStringNotEmpty(value: unknown, fieldName?: string): void {
+  if (typeof value !== 'string' || value.length === 0) {
+    throw new HttpResponseError(400, 'BAD_REQUEST', `Field must be of type string and not empty${formatFieldName(fieldName)}`);
   }
 }
 
 export function validateObject(value: unknown, fieldName?: string): void {
   if (typeof value !== 'object') {
-    throw new HttpResponseError(400, 'BAD_REQUEST', `Field must be type object${formatFieldName(fieldName)}`);
+    throw new HttpResponseError(400, 'BAD_REQUEST', `Field must be of type object${formatFieldName(fieldName)}`);
   }
 }
 
 export function validateArray(value: unknown, fieldName?: string): void {
   if (!Array.isArray(value)) {
-    throw new HttpResponseError(400, 'BAD_REQUEST', `Field must be type array${formatFieldName(fieldName)}`);
+    throw new HttpResponseError(400, 'BAD_REQUEST', `Field must be of type array${formatFieldName(fieldName)}`);
   }
 }
 

@@ -1,10 +1,10 @@
 import * as admin from 'firebase-admin';
 import { DocumentReference } from 'firebase-admin/firestore';
 import { defineInt } from 'firebase-functions/params';
-import { IUserRegisterReqRaw, IUserRes, IUserRegisterReqFormatted, IUser } from '../models/user/user.interface';
+import { IUserRegisterReqRaw, IUserRes, IUserRegisterReqFormatted, IUser } from '../interfaces';
 import { COLLECTION, KEYS, ROLE } from '../constants';
-import { validateUserEmail, validateUserName, validateUserPassword } from '../models/user/user.validators';
-import { HttpResponseError } from '../utils/http-response-error';
+import { validateEmail, validateStringNotEmpty, validateUserPassword } from '../validators';
+import { HttpResponseError } from '../utils';
 
 const bcrypt = require('bcrypt');
 const saltRounds = defineInt(KEYS.SALT_ROUNDS);
@@ -40,8 +40,8 @@ class UserService {
     }
 
     public async formatRegisterReqBody(body: IUserRegisterReqRaw): Promise<IUserRegisterReqFormatted> {
-        validateUserName(body?.name);
-        validateUserEmail(body?.email);
+        validateStringNotEmpty(body?.name);
+        validateEmail(body?.email);
         validateUserPassword(body?.password);
 
         const existingUser = await admin

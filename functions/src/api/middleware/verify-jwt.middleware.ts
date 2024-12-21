@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ErrorResponseBody } from '../../core/utils/http-response-error';
 import { authService, userService } from '../../core/services';
-import { IUserRes } from '../../core/models/user/user.interface';
+import { IUserRes } from '../../core/interfaces';
 import { ERROR_CODE, ROLE } from '../../core/constants';
 
 export const verifyJwtMiddleware = async (req: Request, res: Response, next: NextFunction) => {

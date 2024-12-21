@@ -3,11 +3,10 @@ import * as jwt from 'jsonwebtoken';
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 import { defineString } from 'firebase-functions/params';
 import { Request } from 'express';
-import { IUser } from '../models/user/user.interface';
-import { validateLoginField } from '../models/auth/auth.validators';
-import { ILoginReq, ILoginRes, IParsedJwt } from '../models/auth/auth.interface';
+import { validateString, validateEmail } from '../validators';
+import { ILoginReq, ILoginRes, IParsedJwt, IUser } from '../interfaces';
 import { COLLECTION, KEYS } from '../constants';
-import { HttpResponseError } from '../utils/http-response-error';
+import { HttpResponseError } from '../utils';
 
 const bcrypt = require('bcrypt');
 const jwtExp = defineString(KEYS.JWT_EXPIRE);
@@ -84,8 +83,8 @@ class AuthService {
     }
 
     async #fromBody(body: any): Promise<ILoginReq> {
-        validateLoginField(body?.email);
-        validateLoginField(body?.password);
+        validateEmail(body?.email);
+        validateString(body?.password);
         // no need to map
         return body as ILoginReq;
     }

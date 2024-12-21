@@ -1,7 +1,7 @@
 import * as logger from 'firebase-functions/logger';
 import { Express, NextFunction, Request, RequestHandler, Response } from 'express';
 import { ErrorResponseBody, HttpResponseError } from './http-response-error';
-import { TClaim } from '../models/user/user.interface';
+import { TClaim } from '../interfaces/user.interface';
 import { ERROR_CODE } from '../constants';
 
 export class HttpServer {

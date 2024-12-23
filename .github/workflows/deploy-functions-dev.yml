@@ -27,5 +27,7 @@ jobs:
 
     - name: Deploy to Firebase
       env:
+        JWT_SECRET: ${{ secrets.JWT_SECRET_DEV }}
+        JWT_EXPIRE: ${{ secrets.JWT_EXPIRE_DEV }}
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       run: firebase deploy --only functions --project u-kirche-dev-e7672

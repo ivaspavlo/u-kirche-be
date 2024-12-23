@@ -1,15 +1,13 @@
 import * as admin from 'firebase-admin';
 import * as jwt from 'jsonwebtoken';
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore';
-import { defineString } from 'firebase-functions/params';
 import { Request } from 'express';
 import { validateString, validateEmail } from '../validators';
 import { ILoginReq, ILoginRes, IParsedJwt, IUser } from '../interfaces';
-import { COLLECTION, KEYS } from '../constants';
+import { COLLECTION, ENV_KEY } from '../constants';
 import { HttpResponseError } from '../utils';
 
 const bcrypt = require('bcrypt');
-const jwtExp = defineString(KEYS.JWT_EXPIRE);
 
 class AuthService {
     public async login(body: any): Promise<any> {
@@ -18,8 +16,8 @@ class AuthService {
 
         await this.#checkPassword(body, user.password);
 
-        const jwt = this.#generateJwt({ id: user.id }, process.env[KEYS.JWT_SECRET] as string, {
-            expiresIn: jwtExp.value()
+        const jwt = this.#generateJwt({ id: user.id }, process.env[ENV_KEY.JWT_SECRET] as string, {
+            expiresIn: process.env[ENV_KEY.JWT_EXP]
         });
 
         return this.#toBody(jwt);
@@ -33,7 +31,7 @@ class AuthService {
 
     public verifyJwt(value: string): boolean {
         try {
-            jwt.verify(value, process.env[KEYS.JWT_SECRET]);
+            jwt.verify(value, process.env[ENV_KEY.JWT_SECRET]);
             return true;
         } catch (e: any) {
             return false;

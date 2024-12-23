@@ -1,3 +1,4 @@
+import * as nodemailer from 'nodemailer';
 import { RequestHandler } from 'express';
 import { Controller } from '../../core/interfaces';
 import { HttpServer } from '../../core/utils/http-server';

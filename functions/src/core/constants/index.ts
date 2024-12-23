@@ -1,10 +1,12 @@
-export enum KEYS {
-    ADMIN_KEY = 'ADMIN_KEY',
-    JWT_SECRET = 'JWT_SECRET',
-    SUPERADMIN_KEY = 'SUPERADMIN_KEY',
+export enum GOOGLE_SECRET_KEY {
+    ADMIN_KEY = 'ADMIN_KEY'
+}
+
+export enum ENV_KEY {
     MODE = 'MODE',
+    JWT_SECRET = 'JWT_SECRET',
     SALT_ROUNDS = 'SALT_ROUNDS',
-    JWT_EXPIRE = 'JWT_EXPIRE',
+    JWT_EXP = 'JWT_EXPIRE',
     UI_ORIGIN = 'UI_ORIGIN'
 }
 

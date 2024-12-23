@@ -1,13 +1,12 @@
 import * as admin from 'firebase-admin';
 import { DocumentReference } from 'firebase-admin/firestore';
-import { defineInt } from 'firebase-functions/params';
+
 import { IUserRegisterReqRaw, IUserRes, IUserRegisterReqFormatted, IUser } from '../interfaces';
-import { COLLECTION, KEYS, ROLE } from '../constants';
+import { COLLECTION, ENV_KEY, ROLE } from '../constants';
 import { validateEmail, validateStringNotEmpty, validateUserPassword } from '../validators';
 import { HttpResponseError } from '../utils';
 
 const bcrypt = require('bcrypt');
-const saltRounds = defineInt(KEYS.SALT_ROUNDS);
 
 class UserService {
     public async createUser(body: IUserRegisterReqRaw): Promise<IUserRes> {
@@ -54,7 +53,7 @@ class UserService {
             throw new HttpResponseError(400, 'Email already registered');
         }
 
-        const hashedPassword = await bcrypt.hash(body.password, saltRounds.value());
+        const hashedPassword = await bcrypt.hash(body.password, process.env[ENV_KEY.SALT_ROUNDS]);
 
         return {
             name: body.name,

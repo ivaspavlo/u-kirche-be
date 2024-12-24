@@ -11,15 +11,14 @@
     "format:fix": "npm run prettier -- --write"
   },
   "dependencies": {
-    "@types/nodemailer": "^6.4.17",
+    "@sendgrid/mail": "^8.1.4",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "firebase-admin": "^12.6.0",
-    "firebase-functions": "^6.0.1",
-    "nodemailer": "^6.9.16"
+    "firebase-functions": "^6.0.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

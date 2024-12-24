@@ -7,7 +7,8 @@ export enum ENV_KEY {
     JWT_SECRET = 'JWT_SECRET',
     SALT_ROUNDS = 'SALT_ROUNDS',
     JWT_EXP = 'JWT_EXPIRE',
-    UI_ORIGIN = 'UI_ORIGIN'
+    UI_ORIGIN = 'UI_ORIGIN',
+    SEND_GRID_SECRET = 'SEND_GRID_SECRET'
 }
 
 export enum COLLECTION {

@@ -1,7 +1,6 @@
-import * as nodemailer from 'nodemailer';
 import { RequestHandler } from 'express';
 import { Controller } from '../../core/interfaces';
-import { HttpServer } from '../../core/utils/http-server';
+import { HttpServer } from '../../core/utils';
 
 export class MessageController implements Controller {
     initialize(httpServer: HttpServer): void {
@@ -9,9 +8,7 @@ export class MessageController implements Controller {
     }
 
     private readonly meet: RequestHandler = async (_, res, next) => {
-        res.send({
-            status: `API is working!`
-        });
+        res.send({});
         next();
     };
 }

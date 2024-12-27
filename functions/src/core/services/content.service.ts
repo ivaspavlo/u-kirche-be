@@ -8,7 +8,7 @@ export class ContentService {
         return admin.firestore().collection(COLLECTION.CONTENT);
     }
 
-    async createContent(body: any): Promise<IContent | null> {
+    async createContent(body: unknown): Promise<IContent | null> {
         const contentData = await this.getContent();
         validateNullable(contentData);
         validateContentBody(body);
@@ -16,11 +16,11 @@ export class ContentService {
         return await this.getContent();
     }
 
-    async updateContent(body: any): Promise<IContent | null> {
+    async updateContent(body: unknown): Promise<IContent | null> {
         validateContentBody(body);
         const contentData = await this.getContent();
         validateObject(contentData);
-        this.collection().doc(contentData.id).update({...contentData, ...body});
+        this.collection().doc(contentData.id).update({...contentData, ...body as object});
         return await this.getContent();
     }
 

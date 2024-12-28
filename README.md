@@ -1,6 +1,6 @@
 # Ukrainische Kirche (ukrainische-kirche-be)
 
-A Node.js REST API built with TypeScript, Express.js, Firebase Admin SDK, and Firestore.
+A Node.js REST API built with TypeScript, Express.js, Firebase Admin SDK and Firestore.
 
 ## Important features:
 
@@ -11,15 +11,14 @@ A Node.js REST API built with TypeScript, Express.js, Firebase Admin SDK, and Fi
   - While application is up and running debugger is reattached automatically after each update of the source code.
 
 ### Environments
-  - Project has three environments: local, staging and prod. For each of the environments there are .env files in the root of `./functions` folder, .env.local file is used for local emulation, while .env.staging and .env.prod are used in the corresponding github actions files inside within `./github/workflows` folder.
-  - In the Firebase console there are two projects for staging and prod environment correspondingly.
-  - Deployment to the staging environment occurs after merging from development to staging branch.
-  - Deployment to the prod environment occurs after merging from staging to main branch.
+  - Project has three environments: local, dev and prod. For each of the environments there are .env files in the root of `./functions` folder. While local .env file is used only for local emulation, dev and prod files are used in the corresponding github actions files inside `./github/workflows` folder.
+  - In the Firebase console there are two projects for dev and prod environment correspondingly.
+  - Deployment to the dev environment occurs after pushing to dev branch.
+  - Deployment to the prod environment occurs after merging from dev to main branch.
 
 ### Logging
   - Within application all logging is done with [Cloud Functions logger SDK](https://firebase.google.com/docs/functions/writing-and-viewing-logs?gen=2nd).
   - Logs can be observed in [Cloud Logs Explorer](https://console.cloud.google.com/logs) for corresponding project.
-  - Cloud logging pricing can be found [here](https://cloud.google.com/stackdriver/pricing?db=egilmore#logging-pricing-summary).
 
 ### An API HTTP Trigger
   - API organized under the `api` folder.

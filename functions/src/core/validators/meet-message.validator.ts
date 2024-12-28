@@ -3,7 +3,7 @@ import { validateEmail, validateLanguageField, validateObject, validateString } 
 export function validateMeetMessageData(value: any): void {
 	validateObject(value);
 	validateEmail(value.email);
-	validateLanguageField(value.lang);
+	validateString(value.lang);
 	validateString(value.name, 'name');
 	validateString(value.phoneNumber, 'phoneNumber');
 

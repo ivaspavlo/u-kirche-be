@@ -1,18 +1,18 @@
 import sgMail from '@sendgrid/mail';
 import { logger } from 'firebase-functions/v2';
-import { ENV_KEY } from '../constants';
+import { ENV_KEY, ERROR_CODE } from '../constants';
 import { IMeetMessage } from '../interfaces';
 import { validateMeetMessageData } from '../validators';
+import { HttpResponseError } from '../utils';
 
 sgMail.setApiKey(process.env[ENV_KEY.SEND_GRID_SECRET]);
 
 export class MessageService {
-    async meet(body: unknown): Promise<any> {
+    async meet(body: unknown): Promise<object> {
         validateMeetMessageData(body);
-
         const meetMessage = body as IMeetMessage;
 
-        const msg = {
+        const message = {
             to: 'ukrainische.ortodoxe.kirche@gmail.com',
             from: 'Запит з вебсайту <ukrainische.ortodoxe.kirche@gmail.com>',
             subject: `Прохання зустріти: ${meetMessage.name}`,
@@ -25,10 +25,11 @@ export class MessageService {
         };
 
         try {
-            await sgMail.send(msg);
-            return { success: true }
-        } catch (e) {
-            logger.error('Error sending email', e);
+            await sgMail.send(message);
+            return {};
+        } catch (error: any) {
+            logger.error(error);
+            throw new HttpResponseError(422, ERROR_CODE.UNPROCESSABLE, error);
         }
     }
 }

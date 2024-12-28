@@ -4,6 +4,8 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyJwtMiddleware } from './verify-jwt.middleware';
 import { ENV_KEY } from '../../core/constants';
 
+console.log(process.env[ENV_KEY.UI_ORIGIN]);
+
 export const middleware: Array<(req: Request, res: Response, next: NextFunction) => void> = [
     bodyParser.urlencoded({ extended: false }),
     bodyParser.json(),

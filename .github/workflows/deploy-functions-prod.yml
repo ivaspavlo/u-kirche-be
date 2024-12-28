@@ -27,9 +27,5 @@ jobs:
 
     - name: Deploy to Firebase
       env:
-        JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        JWT_EXPIRE: ${{ secrets.JWT_EXPIRE }}
-        SALT_ROUNDS: ${{ secrets.SALT_ROUNDS }}
-        UI_ORIGIN: ${{ secrets.UI_ORIGIN_PROD }}
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       run: firebase deploy --only functions --project u-kirche-prod-6cc4c

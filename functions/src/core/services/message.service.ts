@@ -9,7 +9,7 @@ sgMail.setApiKey(process.env[ENV_KEY.SEND_GRID_SECRET]);
 
 export class MessageService {
     async meet(body: unknown): Promise<object> {
-        validateMeetMessageData(body);
+        await validateMeetMessageData(body);
         const meetMessage = body as IMeetMessage;
 
         const message = {
@@ -20,7 +20,7 @@ export class MessageService {
                 <h4>Ім'я: ${meetMessage.name}</h4>
                 <p>Повідомлення: ${meetMessage.message}</p>
                 <p>Мова: ${meetMessage.lang}</p>
-                <p>${meetMessage.phoneNumber ? 'Телефон: ' + meetMessage.phoneNumber : ''}</p>
+                <p>${meetMessage.phone ? 'Телефон: ' + meetMessage.phone : ''}</p>
             `
         };
 

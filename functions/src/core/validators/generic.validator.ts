@@ -61,5 +61,5 @@ export function validateLanguageField(value: unknown, fieldName?: string): void 
 }
 
 function formatFieldName(fieldName?: string): string {
-	return `${fieldName ? ' :' + fieldName : ''}`;
+	return `${fieldName ? ': ' + fieldName : ''}`;
 }

@@ -1,13 +1,17 @@
-import { validateEmail, validateLanguageField, validateObject, validateString } from './generic.validator';
+import { validateEmail, validateObject, validateString } from './generic.validator';
+import { validateRecaptcha } from './recaptcha.validator';
 
-export function validateMeetMessageData(value: any): void {
+export async function validateMeetMessageData(value: any): Promise<void> {
 	validateObject(value);
 	validateEmail(value.email);
 	validateString(value.lang);
 	validateString(value.name, 'name');
-	validateString(value.phoneNumber, 'phoneNumber');
+	validateString(value.phone, 'phone');
 
 	if (value.message) {
 		validateString(value.message, 'message');
 	}
+
+	debugger;
+	await validateRecaptcha(value.recaptcha);
 }

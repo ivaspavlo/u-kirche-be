@@ -14,13 +14,13 @@ export function validateContentBody(value: any): void {
     if (value?.phoneContacts) {
         validateArray(value.phoneContacts, 'phoneContacts');
 
-        value.phoneContacts.forEach(i => validateTextContent(i, 'phoneContacts'));
+        value.phoneContacts.forEach((i) => validateTextContent(i, 'phoneContacts'));
     }
 
     if (value?.socialLinks) {
         validateArray(value.socialLinks, 'socialLinks');
 
-        value.socialLinks.forEach(i => {
+        value.socialLinks.forEach((i) => {
             validateString(i.link, 'link');
             validateString(i.title, 'title');
         });

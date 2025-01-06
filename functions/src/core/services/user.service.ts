@@ -30,12 +30,14 @@ class UserService {
 
     public async getUsers(): Promise<IUserRes[]> {
         const users = (await admin.firestore().collection(COLLECTION.USERS).get()).docs;
-        return users.map((d => this.#getUserRes({
-            id: d.id,
-            createdAt: d.createTime.toMillis(),
-            updatedAt: d.updateTime.toMillis(),
-            ...d.data()
-        } as IUser)));
+        return users.map((d) =>
+            this.#getUserRes({
+                id: d.id,
+                createdAt: d.createTime.toMillis(),
+                updatedAt: d.updateTime.toMillis(),
+                ...d.data()
+            } as IUser)
+        );
     }
 
     public async formatRegisterReqBody(body: IUserRegisterReqRaw): Promise<IUserRegisterReqFormatted> {

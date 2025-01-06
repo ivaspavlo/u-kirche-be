@@ -20,16 +20,18 @@ export class ContentService {
         validateContentBody(body);
         const contentData = await this.getContent();
         validateObject(contentData);
-        this.collection().doc(contentData.id).update({...contentData, ...body as object});
+        this.collection()
+            .doc(contentData.id)
+            .update({ ...contentData, ...(body as object) });
         return await this.getContent();
     }
 
     async getContent(): Promise<IContent | null> {
         const querySnapshot = await this.collection().get();
-        const documents = querySnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+        const documents = querySnapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
 
         // Content collection has only one document
-        return documents[0] as IContent ?? null;
+        return (documents[0] as IContent) ?? null;
     }
 }
 

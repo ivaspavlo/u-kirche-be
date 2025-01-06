@@ -24,19 +24,19 @@ export class UserController implements Controller {
         const user = await userService.deleteUser(req?.body?.id);
         res.send({ user });
         next();
-    }
+    };
 
     readonly #getUser: RequestHandler = async (req, res, next) => {
         res.send({ user: req.user });
         next();
-    }
+    };
 
     readonly #getAllUsers: RequestHandler = async (req, res, next) => {
         this.#verifySuperAdminKey(req?.body?.adminKey);
         const users = await userService.getUsers();
         res.send({ users });
         next();
-    }
+    };
 
     #verifySuperAdminKey(key: string): void {
         if (key !== process.env[GOOGLE_SECRET_KEY.ADMIN_KEY]) {

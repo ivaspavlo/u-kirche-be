@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import * as admin from 'firebase-admin';
 import { https } from 'firebase-functions';
 import { apiApp } from './api';

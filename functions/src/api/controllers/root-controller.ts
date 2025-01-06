@@ -12,7 +12,7 @@ export class RootController implements Controller {
 
     private readonly root: RequestHandler = async (_, res, next) => {
         res.send({
-            status: `API is working in mode: ${ process.env[ENV_KEY.MODE] }. Request counter: ${counter++}. UI: ${ process.env[ENV_KEY.UI_ORIGIN] }`
+            status: `API is working in mode: ${process.env[ENV_KEY.MODE]}. Request counter: ${counter++}. UI: ${process.env[ENV_KEY.UI_ORIGIN]}`
         });
         next();
     };

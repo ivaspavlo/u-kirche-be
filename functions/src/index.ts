@@ -8,4 +8,7 @@ process.env.TZ = 'Europe/Vienna';
 
 admin.initializeApp();
 
-exports.api = https.onRequest({ secrets: [GOOGLE_SECRET_KEY.ADMIN_KEY] }, apiApp);
+exports.api = https.onRequest({
+  secrets: [GOOGLE_SECRET_KEY.ADMIN_KEY],
+  timeoutSeconds: 30
+}, apiApp);

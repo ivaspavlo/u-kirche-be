@@ -10,9 +10,10 @@ A Node.js REST API built with TypeScript, Express.js, Firebase Admin SDK and Fir
   - Other option is to develop in the debug mode: click on the VS Code sidepanel's "Run and debug" button, in the DDL select "Run script: watch" and click "Play".
   - While application is up and running debugger is reattached automatically after each update of the source code.
 
-### Environments
-  - Project has three environments: local, dev and prod. For each of the environments there are .env files in the root of `./functions` folder. While local .env file is used only for local emulation, dev and prod files are used in the corresponding github actions files inside `./github/workflows` folder.
-  - In the Firebase console there are two projects for dev and prod environment correspondingly.
+### Environments and deployment
+  - Project has three environments: local, dev and prod. File .env can be used for local emulation, it is included in .gitignore. Environment variables for dev and prod are stored in the Google Cloud.
+  - In the Firebase console there are two projects created for dev and prod environment correspondingly.
+  - Deployment is done via Git actions, see `.github/workflows` folder.
   - Deployment to the dev environment occurs after pushing to dev branch.
   - Deployment to the prod environment occurs after merging from dev to main branch.
 
@@ -20,13 +21,18 @@ A Node.js REST API built with TypeScript, Express.js, Firebase Admin SDK and Fir
   - Within application all logging is done with [Cloud Functions logger SDK](https://firebase.google.com/docs/functions/writing-and-viewing-logs?gen=2nd).
   - Logs can be observed in [Cloud Logs Explorer](https://console.cloud.google.com/logs) for corresponding project.
 
+### Formatting
+  - Project is formatted with Prettier, rules can be found in `prettier.config.ts`.
+  - Formatting can be configured to run on save, with `"editor.formatOnSave": true` in VS Code editor.
+  - The formatting check is included into the pipeline in Git action.
+
 ### An API HTTP Trigger
   - API organized under the `api` folder.
   - Access Control: user access can be rejected by simply choosing what user roles can access a specific path or check the claims with a custom `request` object in the Request Handler.
   - Request can be rejected anywhere by throwing `new HttpResponseError(status, codeString, message)`.
-  - Shared components between API and Event Triggers are under the `core` folder.
+  - Shared components are under the `core` folder.
 
-## Commands description
+## Commands and description
   - kill process not ended gracefully: `lsof -t -i tcp:5004 | xargs kill`
   - kill debug process not ended gracefully: `lsof -t -i tcp:9229 | xargs kill`
   - list all Firebase projects: `firebase projects:list`
@@ -36,4 +42,4 @@ A Node.js REST API built with TypeScript, Express.js, Firebase Admin SDK and Fir
   - run before deploying to hosting: `firebase init hosting:github`
 
 ## Project structure
-  - Project includes two package.json files. The one in the root folder is for convenience purposes only: to be able to start he app without `cd` command. It mirrors the commands in the main package.json that is located in ./functions.
+  - Project includes two package.json files. The one in the root folder is for convenience purposes only: to be able to start the app without `cd` command. It mirrors the commands in the main package.json that is located in ./functions.

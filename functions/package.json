@@ -1,33 +1,38 @@
 {
-  "name": "u-kirche-be",
-  "main": "dist/index.js",
-  "scripts": {
-    "clean": "node_modules/.bin/rimraf ./dist",
-    "build": "npm run clean && npx tsc",
-    "build:watch": "npm run clean && npx tsc --watch",
-    "watch": "npm run build:watch | firebase emulators:start --only functions --inspect-functions",
-    "watch:db": "npm run build:watch | firebase emulators:start --inspect-functions",
-    "format": "npx prettier src --check",
-    "format:fix": "npx prettier src --write"
-  },
-  "dependencies": {
-    "@sendgrid/mail": "^8.1.4",
-    "bcrypt": "^5.1.1",
-    "body-parser": "^1.20.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.1",
-    "express-rate-limit": "^7.5.0",
-    "firebase-admin": "^12.6.0",
-    "firebase-functions": "^6.2.0",
-    "node-fetch": "^3.3.2"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.7.5",
-    "prettier": "^3.4.2",
-    "rimraf": "^6.0.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
-  }
+    "name": "u-kirche-be",
+    "main": "dist/index.js",
+    "engines": {
+        "node": "22"
+    },
+    "scripts": {
+        "clean": "node_modules/.bin/rimraf ./dist",
+        "build": "tsc",
+        "rebuild": "npm run clean && npm run build",
+        "build:watch": "tsc --watch --preserveWatchOutput",
+        "dev": "npm run build && concurrently --kill-others --names typescript,emulators \"npm run build:watch\" \"npm run emulators\"",
+        "emulators": "NODE_USE_SYSTEM_CA=1 firebase emulators:start --only auth,functions,firestore",
+        "format": "npx prettier src --check",
+        "format:fix": "npx prettier src --write"
+    },
+    "dependencies": {
+        "@sendgrid/mail": "^8.1.4",
+        "body-parser": "^1.20.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.1",
+        "express-rate-limit": "^7.5.0",
+        "firebase-admin": "^12.6.0",
+        "firebase-functions": "^6.2.0",
+        "node-fetch": "^3.3.2"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.7.5",
+        "concurrently": "^10.0.5",
+        "firebase-tools": "^15.30.0",
+        "prettier": "^3.4.2",
+        "rimraf": "^6.0.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.3"
+    }
 }

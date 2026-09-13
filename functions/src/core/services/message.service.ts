@@ -5,12 +5,17 @@ import { IMeetMessage } from '../interfaces';
 import { validateMeetMessageData } from '../validators';
 import { HttpResponseError } from '../utils';
 
-sgMail.setApiKey(process.env[ENV_KEY.SEND_GRID_SECRET]);
-
 export class MessageService {
     async meet(body: unknown): Promise<object> {
         await validateMeetMessageData(body);
         const meetMessage = body as IMeetMessage;
+        const apiKey = process.env[ENV_KEY.SEND_GRID_SECRET];
+
+        if (!apiKey) {
+            throw new HttpResponseError(503, ERROR_CODE.INTERNAL_ERROR, 'Email service is not configured');
+        }
+
+        sgMail.setApiKey(apiKey);
 
         const message = {
             to: 'ukrainische.ortodoxe.kirche@gmail.com',

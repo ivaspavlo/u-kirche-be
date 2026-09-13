@@ -1,5 +1,4 @@
-import { DecodedIdToken, UserRecord } from 'firebase-admin/lib/auth';
-import { TClaim } from '../../../index';
+import { IUserRes, TClaim } from '../../interfaces';
 
 declare global {
     namespace Express {
@@ -12,10 +11,10 @@ declare global {
             /**
              * Indicates verified user claims.
              */
-            claims?: TClaim;
+            claims: Partial<Record<TClaim, boolean>>;
 
             /**
-             * Contains user data derived from the JWT.
+             * Contains user data associated with the verified Firebase identity.
              */
             user?: IUserRes;
         }

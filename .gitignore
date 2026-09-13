@@ -3,4 +3,6 @@ firebase-debug.log
 *-debug.log
 functions/node_modules/*
 functions/dist/*
+functions/.env*
+!functions/.env.example
 README_PRIVATE.md

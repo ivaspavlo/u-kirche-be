@@ -1,8 +1,8 @@
 {
   "scripts": {
+    "dev": "npm run --prefix ./functions dev",
     "build": "npm run --prefix ./functions build",
-    "watch": "npm run --prefix ./functions watch",
-    "watch:db": "npm run --prefix ./functions watch:all",
+    "emulators": "npm run --prefix ./functions emulators",
     "clean": "npm run --prefix ./functions clean",
     "build:watch": "npm run --prefix ./functions build:watch"
   }

@@ -28,6 +28,9 @@ export class HttpServer {
         if (!claims?.length) {
             return;
         }
+        if (!req.authenticated) {
+            throw new HttpResponseError(401, ERROR_CODE.UNAUTHORIZED, 'Authentication required');
+        }
         const isAllowed = !!claims.find((c) => req.claims[c]);
         if (!isAllowed) {
             throw new HttpResponseError(403, ERROR_CODE.FORBIDDEN, 'Access not authorized for this role');
@@ -40,9 +43,8 @@ export class HttpServer {
                 this.#checkClaims(req, claims);
                 await Promise.resolve(requestHandler(req, res, next));
             } catch (error: any) {
-                logger.error(`[${req.method.toUpperCase()}] ${req.path} ${error}`);
-
                 if (error instanceof HttpResponseError) {
+                    logger.warn(`[${req.method.toUpperCase()}] ${req.path} ${error}`);
                     res.status(error.status).send(
                         new ErrorResponseBody({
                             code: error.code,
@@ -52,6 +54,7 @@ export class HttpServer {
                     return;
                 }
 
+                logger.error(`[${req.method.toUpperCase()}] ${req.path} ${error}`);
                 res.statusCode = 500;
                 res.send(
                     new ErrorResponseBody({

@@ -4,15 +4,12 @@ export type TClaim = TUserRole | 'authenticated';
 export interface IUserRegisterReqRaw {
     name: string;
     email: string;
-    password: string;
-    adminKey?: string;
 }
 
 export interface IUserRegisterReqFormatted {
     name: string;
     email: string;
     role: TUserRole;
-    password: string;
 }
 
 export interface IUserRes {
@@ -31,5 +28,5 @@ export interface IUser {
     role: TUserRole;
     updatedAt: number;
     createdAt: number;
-    password: string;
+    firebaseUid?: string;
 }

@@ -1,4 +1,4 @@
-import * as admin from 'firebase-admin';
+import { getFirestore } from 'firebase-admin/firestore';
 import { DocumentReference } from 'firebase-admin/firestore';
 import { COLLECTION } from '../constants';
 import { IArticleFirestore, IArticleReq, IArticleRes } from '../interfaces';
@@ -6,7 +6,7 @@ import { validateStringNotEmpty } from '../validators';
 
 export class ArticlesService {
     private collection() {
-        return admin.firestore().collection(COLLECTION.ARTICLES);
+        return getFirestore().collection(COLLECTION.ARTICLES);
     }
 
     private doc(productId?: string) {

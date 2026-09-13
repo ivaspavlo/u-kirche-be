@@ -3,4 +3,8 @@ firebase-debug.log
 *-debug.log
 functions/node_modules/*
 functions/dist/*
+functions/.env*
+!functions/.env.example
+!functions/.env.u-kirche-dev-e7672
+!functions/.env.u-kirche-prod-6cc4c
 README_PRIVATE.md

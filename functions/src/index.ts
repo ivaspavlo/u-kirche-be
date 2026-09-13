@@ -1,15 +1,17 @@
 import 'dotenv/config';
-import * as admin from 'firebase-admin';
+import { initializeApp } from 'firebase-admin/app';
 import { https } from 'firebase-functions';
 import { apiApp } from './api';
+import { ENV_KEY } from './core/constants';
 
 process.env.TZ = 'Europe/Vienna';
 
-admin.initializeApp();
+initializeApp();
 
 exports.api = https.onRequest(
     {
-        timeoutSeconds: 30
+        timeoutSeconds: 30,
+        secrets: [ENV_KEY.SEND_GRID_SECRET, ENV_KEY.RECAPTCHA_SECRET]
     },
     apiApp
 );

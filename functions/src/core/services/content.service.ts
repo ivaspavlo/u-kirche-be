@@ -1,11 +1,11 @@
-import * as admin from 'firebase-admin';
+import { getFirestore } from 'firebase-admin/firestore';
 import { COLLECTION } from '../constants';
 import { IContent } from '../interfaces';
 import { validateContentBody, validateNullable, validateObject } from '../validators';
 
 export class ContentService {
     private collection() {
-        return admin.firestore().collection(COLLECTION.CONTENT);
+        return getFirestore().collection(COLLECTION.CONTENT);
     }
 
     async createContent(body: unknown): Promise<IContent | null> {

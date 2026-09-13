@@ -1,5 +1,4 @@
-import * as admin from 'firebase-admin';
-import { DocumentReference } from 'firebase-admin/firestore';
+import { DocumentReference, FieldValue, getFirestore } from 'firebase-admin/firestore';
 
 import { IUserRegisterReqRaw, IUserRes, IUserRegisterReqFormatted, IUser } from '../interfaces';
 import { COLLECTION, ERROR_CODE, ROLE } from '../constants';
@@ -9,18 +8,18 @@ import { HttpResponseError } from '../utils';
 class UserService {
     public async createUser(body: IUserRegisterReqRaw): Promise<IUserRes> {
         const userInput: IUserRegisterReqFormatted = await this.formatRegisterReqBody(body);
-        const userRef = await admin.firestore().collection(COLLECTION.USERS).add(userInput);
+        const userRef = await getFirestore().collection(COLLECTION.USERS).add(userInput);
 
         return this.#toBody(userRef);
     }
 
     public async getUserById(id: string): Promise<IUserRes> {
-        const userRef = await admin.firestore().collection(COLLECTION.USERS).doc(id);
+        const userRef = await getFirestore().collection(COLLECTION.USERS).doc(id);
         return this.#toBody(userRef);
     }
 
     public async getUserByFirebaseIdentity(firebaseUid: string, email: string): Promise<IUserRes> {
-        const users = admin.firestore().collection(COLLECTION.USERS);
+        const users = getFirestore().collection(COLLECTION.USERS);
         const userByUid = await users.where('firebaseUid', '==', firebaseUid).limit(1).get();
 
         if (!userByUid.empty) {
@@ -45,21 +44,21 @@ class UserService {
 
         await userDocument.ref.update({
             firebaseUid,
-            ...(userDocument.get('password') ? { password: admin.firestore.FieldValue.delete() } : {})
+            ...(userDocument.get('password') ? { password: FieldValue.delete() } : {})
         });
 
         return this.#toBody(userDocument.ref);
     }
 
     public async deleteUser(id: string): Promise<IUserRes> {
-        const userRef = await admin.firestore().collection(COLLECTION.USERS).doc(id);
+        const userRef = await getFirestore().collection(COLLECTION.USERS).doc(id);
         const user = await this.#toBody(userRef);
         await userRef.delete();
         return user;
     }
 
     public async getUsers(): Promise<IUserRes[]> {
-        const users = (await admin.firestore().collection(COLLECTION.USERS).get()).docs;
+        const users = (await getFirestore().collection(COLLECTION.USERS).get()).docs;
         return users.map((d) =>
             this.#getUserRes({
                 id: d.id,
@@ -76,7 +75,7 @@ class UserService {
 
         const email = body.email.trim().toLowerCase();
 
-        const existingUser = await admin.firestore().collection(COLLECTION.USERS).where('email', '==', email).get();
+        const existingUser = await getFirestore().collection(COLLECTION.USERS).where('email', '==', email).get();
 
         if (!existingUser.empty) {
             throw new HttpResponseError(400, 'Email already registered');
@@ -113,7 +112,7 @@ class UserService {
 
     async #deleteLegacyPassword(userRef: DocumentReference, password: unknown): Promise<void> {
         if (password) {
-            await userRef.update({ password: admin.firestore.FieldValue.delete() });
+            await userRef.update({ password: FieldValue.delete() });
         }
     }
 }

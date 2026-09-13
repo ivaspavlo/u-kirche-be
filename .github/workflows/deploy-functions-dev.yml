@@ -5,34 +5,58 @@ on:
     branches:
       - develop
 
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-functions-dev
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "22"
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_U_KIRCHE_DEV_E7672 }}
-
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+          cache: npm
+          cache-dependency-path: functions/package-lock.json
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
         working-directory: ./functions
 
       - name: Check formatting
         run: npm run format
         working-directory: ./functions
 
+      - name: Build
+        run: npm run build
+        working-directory: ./functions
+
+      - name: Check production dependencies
+        run: npm audit --omit=dev --audit-level=high
+        working-directory: ./functions
+
+      - name: Check deployment credentials
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_U_KIRCHE_DEV_E7672 }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
+            echo "::error::Repository secret FIREBASE_SERVICE_ACCOUNT_U_KIRCHE_DEV_E7672 is not configured or is unavailable to this workflow."
+            exit 1
+          fi
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_U_KIRCHE_DEV_E7672 }}
+
       - name: Deploy to Firebase
-        run: firebase deploy --only functions --project u-kirche-dev-e7672
+        run: ./functions/node_modules/.bin/firebase deploy --only functions --project u-kirche-dev-e7672

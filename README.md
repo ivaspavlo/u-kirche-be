@@ -31,7 +31,8 @@ Enable the Google provider in Firebase Authentication for deployed projects. Dur
 
 ### Environments and deployment
 
-- Project has three environments: local, dev and prod. File `functions/.env.local` can be used for local emulation and is excluded from Git and deployment. Environment variables for dev and prod are stored in Google Cloud.
+- Project has three environments: local, dev and prod. File `functions/.env.local` can be used for local emulation and is excluded from Git and deployment. Non-secret dev/prod values are stored in the matching `functions/.env.<project-id>` file.
+- `SEND_GRID_SECRET` and `RECAPTCHA_SECRET` are stored in Google Cloud Secret Manager and explicitly bound to the API function. Create them separately in both Firebase projects before deployment.
 - In the Firebase console there are two projects created for dev and prod environment correspondingly.
 - Deployment is done via Git actions, see `.github/workflows` folder.
 - Deployment to the dev environment occurs after pushing to dev branch.
@@ -61,8 +62,8 @@ Enable the Google provider in Firebase Authentication for deployed projects. Dur
 - kill debug process not ended gracefully: `lsof -t -i tcp:9229 | xargs kill`
 - list all Firebase projects: `firebase projects:list`
 - switch to another Firebase project: `firebase use <project_name>`
-- set Firebase secret: `firebase functions:secrets:set <secret_name>`
-- generate Firebase CI token: `firebase login:ci`
+- set Firebase secret: `firebase functions:secrets:set <secret_name> --project <project_id>`
+- inspect Firebase secret metadata: `firebase functions:secrets:get <secret_name> --project <project_id>`
 - run before deploying to hosting: `firebase init hosting:github`
 
 ## Project structure

@@ -1,4 +1,4 @@
-import * as admin from 'firebase-admin';
+import { getAuth } from 'firebase-admin/auth';
 import { DecodedIdToken } from 'firebase-admin/auth';
 import { Request } from 'express';
 
@@ -10,7 +10,7 @@ class AuthService {
     }
 
     public verifyIdToken(token: string): Promise<DecodedIdToken> {
-        return admin.auth().verifyIdToken(token, true);
+        return getAuth().verifyIdToken(token, true);
     }
 }
 
